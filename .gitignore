@@ -1,3 +1,5 @@
 _dev/
+assets/_dev/
 assets/tmp/
+.hermes/
 *.log
