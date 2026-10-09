@@ -43,11 +43,15 @@ body{font-family:var(--font);color:var(--ink);background:#06070d;-webkit-font-sm
 /* ================= 背景层 ================= */
 .bgfx{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden;
   background:linear-gradient(135deg,#06070d 0%,#0c1226 32%,#1a1740 62%,#0c1226 100%)}
+.bgimg{position:absolute;inset:0;background:url('assets/bg.jpg') center/cover no-repeat;
+  opacity:.94;filter:brightness(.62) saturate(.95) contrast(1.03)}
+.bgveil{position:absolute;inset:0;
+  background:linear-gradient(100deg,rgba(5,7,18,.90) 0%,rgba(5,7,18,.74) 36%,rgba(5,7,18,.44) 68%,rgba(5,7,18,.66) 100%)}
 .orb{position:absolute;border-radius:50%;filter:blur(100px);will-change:transform}
-.orb.a{width:680px;height:680px;opacity:.32;background:radial-gradient(circle,rgba(0,212,255,.55) 0%,transparent 70%)}
-.orb.b{width:580px;height:580px;opacity:.28;background:radial-gradient(circle,rgba(139,92,246,.68) 0%,transparent 70%)}
-.orb.c{width:480px;height:480px;opacity:.20;background:radial-gradient(circle,rgba(236,72,153,.60) 0%,transparent 70%)}
-.grid{position:absolute;inset:0;opacity:.032;
+.orb.a{width:680px;height:680px;opacity:.17;background:radial-gradient(circle,rgba(0,212,255,.55) 0%,transparent 70%)}
+.orb.b{width:580px;height:580px;opacity:.15;background:radial-gradient(circle,rgba(139,92,246,.68) 0%,transparent 70%)}
+.orb.c{width:480px;height:480px;opacity:.11;background:radial-gradient(circle,rgba(236,72,153,.60) 0%,transparent 70%)}
+.grid{position:absolute;inset:0;opacity:.016;
   background-image:linear-gradient(rgba(0,212,255,.6) 1px,transparent 1px),linear-gradient(90deg,rgba(0,212,255,.6) 1px,transparent 1px);
   background-size:68px 68px;
   mask-image:radial-gradient(ellipse at 50% 38%,#000 28%,transparent 76%);
@@ -488,6 +492,8 @@ section.dense .shots{margin-top:0}
 <body>
 
 <div class="bgfx" id="bgfx">
+  <div class="bgimg"></div>
+  <div class="bgveil"></div>
   <div class="orb a" data-par="0.02"></div>
   <div class="orb b" data-par="0.03"></div>
   <div class="orb c" data-par="0.015"></div>
