@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>龚雨豪 · 短视频剪辑作品集 2026</title>
-<meta name="description" content="龚雨豪 · TikTok 带货短视频拍摄剪辑作品集。2年经验，独立操盘美区带货短视频全流程。">
+<meta name="description" content="龚雨豪 · TikTok 带货短视频拍摄剪辑作品集。3年经验，独立操盘美区带货短视频全流程，擅长 AIGC 达人出镜视频与 AI 生产工作流。">
 <!--
   ============================================================
   龚雨豪 · 作品集 / 个人简历  单文件站
@@ -303,6 +303,9 @@ section{position:relative;min-height:100vh;min-height:100dvh;scroll-snap-align:s
 .vcard .hot{position:absolute;top:6px;left:6px;z-index:3;padding:3px 8px;border-radius:999px;
   font-size:10px;font-weight:700;letter-spacing:.06em;color:#04121c;line-height:1.35;
   background:linear-gradient(100deg,#8ef0ff,#c4a6ff);box-shadow:0 4px 16px rgba(0,212,255,.55)}
+.vcard .ai{position:absolute;top:6px;left:6px;z-index:3;padding:3px 8px;border-radius:999px;
+  font-size:10px;font-weight:700;letter-spacing:.06em;color:#1b0a2e;line-height:1.35;
+  background:linear-gradient(100deg,#c9b8ff,#ff9ede);box-shadow:0 4px 16px rgba(139,92,246,.6)}
 .vcard .cap{position:absolute;left:0;right:0;bottom:0;padding:18px 6px 8px;font-size:11px;color:#fff;
   text-align:center;letter-spacing:.02em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
   background:linear-gradient(transparent,rgba(0,0,0,.88))}
@@ -347,6 +350,12 @@ video::-webkit-media-controls-panel{width:calc(100% + 32px)}
 @media (max-width:1080px){.vgrid{grid-template-columns:repeat(5,1fr)}}
 @media (max-width:900px){.vgrid{grid-template-columns:repeat(3,1fr)}.lb{padding:56px 16px}}
 @media print{.lb{display:none!important}.vgrid{grid-template-columns:repeat(4,1fr)}}
+/* 屏幕不够高时（1366×768 笔记本实测视口只有 660~700）17 支作品会撑出第 3 行、
+   把最后一行的标题条挤出可视区 → 改为 9 列 2 行，整屏可见不被裁切。
+   960px 是实测阈值：>=961 时 3 行仍能整屏放下，<=960 就必须降为 2 行。 */
+@media (max-height:960px) and (min-width:901px){
+  .vgrid{grid-template-columns:repeat(9,1fr);gap:8px}
+}
 
 
 /* ================= 流程 ================= */
@@ -543,17 +552,17 @@ section.dense .shots{margin-top:0}
       <h1 class="heroname rv d1" data-edit="name-cn">龚雨豪</h1>
       <div class="heroen rv d2">GONG YUHAO</div>
       <div class="pills rv d2">
-        <span class="pill" data-edit="role"><i></i>短视频剪辑师 · 2年经验 · 深圳</span>
+        <span class="pill" data-edit="role"><i></i>TikTok 拍摄剪辑 · 3年经验 · 深圳</span>
       </div>
       <p class="heroint rv d3" data-edit="intro">
-        独立操盘 TikTok 美区带货短视频全流程，日均产出 6–12 条，
-        熟练制作口播、AI 创意类视频，打造过单条 25 万+ 播放爆款。
+        独立操盘 TikTok 美区带货短视频全流程，覆盖旅行用品、家居、五金、饰品、3C 数码等类目；
+        日均产出 6–10 条，用 GPT / 即梦 / AI Agent 搭建 AIGC 视频生产工作流，单条最高播放 25 万+。
       </p>
       <div class="pills rv d3" style="margin-top:16px">
         <span class="pill"><i></i>TikTok 带货短视频</span>
         <span class="pill v"><i></i>实拍剪辑</span>
         <span class="pill p"><i></i>口播视频</span>
-        <span class="pill l"><i></i>AI 创意视频</span>
+        <span class="pill l"><i></i>AIGC 达人出镜</span>
       </div>
       <div class="btns rv d4">
         <a class="btn primary" id="goWorks"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>查看作品</a>
@@ -563,7 +572,7 @@ section.dense .shots{margin-top:0}
         <div class="statcard"><div class="statnum c1">250.9K</div><div class="statlabel">单条最高播放</div></div>
         <div class="statcard"><div class="statnum c2">$5.1K</div><div class="statlabel">单月最高成交</div></div>
         <div class="statcard"><div class="statnum c3">221</div><div class="statlabel">单月成交件数</div></div>
-        <div class="statcard"><div class="statnum c4">12 条/日</div><div class="statlabel">最高日产能</div></div>
+        <div class="statcard"><div class="statnum c4">17 支</div><div class="statlabel">在线作品</div></div>
       </div>
     </div>
     <div class="photoframe rv d3">
@@ -584,28 +593,26 @@ section.dense .shots{margin-top:0}
   <div class="wrap">
     <span class="eyebrow rv">About Me <em>· 个人优势</em></span>
     <h2 class="title rv d1">关于<span class="g">我</span></h2>
-    <p class="sub rv d2">2 年短视频实战经验，从工地影像记录到 TikTok 电商带货，一路把镜头、剪辑台和 AI 工具都练成了手上的活。</p>
+    <p class="sub rv d2">3 年短视频实战经验，从工地影像记录到 TikTok 电商带货，一路把镜头、剪辑台和 AI 工具都练成了手上的活。</p>
     <div class="advgrid">
-      <div class="card adv rv d2"><span class="no">01</span><h3>全流程独立操盘</h3><p>独立完成 TikTok 美区带货短视频全流程，日均产出 6–10 条，熟练制作口播、AI 创意类视频。</p></div>
-      <div class="card adv rv d3"><span class="no">02</span><h3>爆款成果可验证</h3><p>打造过爆款带货视频：单条自然播放 25 万+，单月带动成交 GMV $5.1K，后台数据可查。</p></div>
-      <div class="card adv rv d3"><span class="no">03</span><h3>剪辑 + AI 双熟练</h3><p>精通剪映、CapCut，熟练使用豆包、GPT 等 AI 工具，擅长卡点剪辑、提升视频完播率。</p></div>
-      <div class="card adv rv d4"><span class="no">04</span><h3>拍摄设备能上手</h3><p>掌握现场拍摄与摄影设备运维，可独立完成脚本、拍摄、后期全流程工作。</p></div>
+      <div class="card adv rv d2"><span class="no">01</span><h3>全流程独立操盘</h3><p>独立完成 TikTok 美区带货短视频全流程，覆盖旅行用品、家居、五金、饰品、3C 数码等类目，日均产出 6–10 条。</p></div>
+      <div class="card adv rv d3"><span class="no">02</span><h3>爆款成果可验证</h3><p>单条最高播放 25 万+（其中单条 15 天自然播放 20 万），单月带动成交 GMV $5.1K，后台数据可查。</p></div>
+      <div class="card adv rv d3"><span class="no">03</span><h3>剪辑 + AI 双熟练</h3><p>精通剪映、CapCut，擅长卡点剪辑、花字包装与音效配合，持续优化完播率与观感。</p></div>
+      <div class="card adv rv d4"><span class="no">04</span><h3>拍摄剪辑全流程</h3><p>熟练单反相机与手机专业拍摄，可独立完成脚本、拍摄、后期全流程工作。</p></div>
       <div class="card adv rv d5" style="display:flex;flex-direction:column;justify-content:center;gap:12px">
-        <h3 style="margin-bottom:0">常用 AI 工具</h3>
+        <h3 style="margin-bottom:0">AI 视频生产工作流</h3>
         <div class="pills">
-          <span class="pill"><i></i>即梦 AI</span>
-          <span class="pill v"><i></i>Gemini</span>
-          <span class="pill p"><i></i>Flow</span>
-          <span class="pill l"><i></i>Agent</span>
-          <span class="pill"><i></i>豆包</span>
-          <span class="pill v"><i></i>GPT</span>
+          <span class="pill"><i></i>GPT / 豆包 脚本</span>
+          <span class="pill v"><i></i>即梦 / Seedance</span>
+          <span class="pill p"><i></i>AI Agent 批量剪辑</span>
+          <span class="pill l"><i></i>Gemini / Flow</span>
         </div>
       </div>
       <div class="card adv rv d5"><span class="no">06</span><h3>爆款内容方法论</h3><p>会拆解爆款脚本结构、找对标账号与视频，小成本测试拍摄方向，用数据验证后再放量。</p></div>
     </div>
     <div class="stats rv d5" style="margin-top:22px">
       <div class="statcard"><div class="statnum c1 sm">2 年</div><div class="statlabel">短视频从业</div></div>
-      <div class="statcard"><div class="statnum c2 sm">6–12 条</div><div class="statlabel">日均产出</div></div>
+      <div class="statcard"><div class="statnum c2 sm">6–10 条</div><div class="statlabel">日均产出</div></div>
       <div class="statcard"><div class="statnum c3 sm">二甲</div><div class="statlabel">普通话等级</div></div>
       <div class="statcard"><div class="statnum c4 sm">23 岁</div><div class="statlabel">男 · 深圳</div></div>
     </div>
@@ -625,11 +632,11 @@ section.dense .shots{margin-top:0}
       </div>
       <div class="card scol rv d1">
         <div class="si"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v3M12 19v3M4.9 4.9L7 7M17 17l2.1 2.1M2 12h3M19 12h3M4.9 19.1L7 17M17 7l2.1-2.1"/></svg></div>
-        <div><h3>AI 创作工具</h3><p>即梦 AI · Flow · Gemini · 豆包 · GPT · Agent 工作流</p></div>
+        <div><h3>AI 创作工具</h3><p>即梦 AI · Seedance · GPT / 豆包 · AI Agent 工作流</p></div>
       </div>
       <div class="card scol rv d2">
         <div class="si"><svg viewBox="0 0 24 24"><path d="M4 7h16M4 12h11M4 17h7"/><circle cx="18.5" cy="16.5" r="2.5"/></svg></div>
-        <div><h3>视频制作</h3><p>口播短视频 · TikTok 海外短视频 · 产品带货视频 · 实拍剪辑</p></div>
+        <div><h3>视频制作</h3><p>TikTok 海外带货短视频 · 口播种草 · 产品演示 · AIGC 电商短视频</p></div>
       </div>
       <div class="card scol rv d2">
         <div class="si"><svg viewBox="0 0 24 24"><rect x="3" y="7" width="18" height="13" rx="2"/><circle cx="12" cy="13.5" r="3.5"/><path d="M9 7l1.5-2h3L15 7"/></svg></div>
@@ -647,7 +654,7 @@ section.dense .shots{margin-top:0}
     <div class="skills">
       <div class="skill rv d3"><div class="row"><span>剪映 / CapCut 剪辑</span><b>95%</b></div><div class="bar"><i class="f1" data-w="95"></i></div></div>
       <div class="skill rv d3"><div class="row"><span>卡点剪辑 · 完播率优化</span><b>92%</b></div><div class="bar"><i class="f4" data-w="92"></i></div></div>
-      <div class="skill rv d4"><div class="row"><span>AI 工具应用（即梦 / Gemini / Flow / Agent）</span><b>90%</b></div><div class="bar"><i class="f2" data-w="90"></i></div></div>
+      <div class="skill rv d4"><div class="row"><span>AI 视频生产工作流（GPT / 即梦 / Agent）</span><b>90%</b></div><div class="bar"><i class="f2" data-w="90"></i></div></div>
       <div class="skill rv d4"><div class="row"><span>现场拍摄 · 设备运维</span><b>85%</b></div><div class="bar"><i class="f3" data-w="85"></i></div></div>
     </div>
     <div class="pills rv d5" style="justify-content:center;margin-top:24px">
@@ -658,6 +665,14 @@ section.dense .shots{margin-top:0}
       <span class="pill"><i></i>完播率优化</span>
       <span class="pill v"><i></i>花字包装</span>
       <span class="pill p"><i></i>素材归档</span>
+    </div>
+    <div class="pills rv d5" style="justify-content:center;margin-top:13px">
+      <span style="align-self:center;font-size:12.5px;color:rgba(255,255,255,.42);margin-right:4px">覆盖类目</span>
+      <span class="pill"><i></i>旅行用品</span>
+      <span class="pill v"><i></i>家居</span>
+      <span class="pill p"><i></i>五金</span>
+      <span class="pill l"><i></i>饰品</span>
+      <span class="pill"><i></i>3C 数码</span>
     </div>
   </div>
 </section>
@@ -675,10 +690,10 @@ section.dense .shots{margin-top:0}
           <span class="tl-time">2026.03 — 至今</span>
         </div>
         <ul>
-          <li>独立完成 TikTok 电商带货短视频拍摄、脚本优化、素材整理、剪辑成片全流程。</li>
-          <li>日均产出 10–12 条短视频，运用卡点剪辑、音效、花字包装优化观感。</li>
-          <li>挖掘产品卖点与用户痛点，优化视频结构，降低用户中途跳出率。</li>
-          <li><b style="color:#fff">代表成果：单条十五天自然播放 20 万，带动 GMV 3000 美刀。</b></li>
+          <li>独立完成 TikTok 电商带货短视频拍摄、脚本优化、素材整理、剪辑成片全流程，覆盖旅行用品、家居、五金、饰品、3C 数码等类目。</li>
+          <li>日均产出 6–10 条短视频，运用卡点剪辑、音效、花字包装优化观感。</li>
+          <li>用 GPT / 豆包拆解产品卖点与用户痛点写脚本，即梦生成 AIGC 素材，配合 AI Agent 批量处理素材与成片，搭建并持续优化视频生产工作流。</li>
+          <li><b style="color:#fff">代表成果：单条最高播放 25 万+，单条 15 天自然播放 20 万，带动 GMV 3000 美刀。</b></li>
         </ul>
       </div>
       <div class="tl rv d3">
@@ -740,7 +755,7 @@ section.dense .shots{margin-top:0}
   <div class="wrap">
     <span class="eyebrow rv">Works <em>· 作品展示</em></span>
     <h2 class="title rv d1">作品<span class="g">展示</span></h2>
-    <p class="sub rv d2" style="margin-bottom:18px">14 支带货短视频作品 · AI 创意 + 实拍剪辑 · 点击卡片播放</p>
+    <p class="sub rv d2" style="margin-bottom:18px">17 支带货短视频作品 · 含 3 支 AIGC 达人出镜 · 实拍剪辑 + AI 生产 · 点击卡片播放</p>
     <div class="vgrid rv d3">
       <div class="vcard" data-v="assets/videos/v01.mp4" data-t="移动电源 · 数码配件">
         <img src="assets/covers/v01.jpg" alt="移动电源带货短视频" loading="lazy" draggable="false">
@@ -813,6 +828,24 @@ section.dense .shots{margin-top:0}
         <span class="play"><span><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span></span>
         <span class="cap">宠物凉感垫 · 宠物用品</span>
       </div>
+      <div class="vcard" data-v="assets/videos/v15.mp4" data-t="玄关衣帽架 · 家居收纳">
+        <span class="ai">AIGC</span>
+        <img src="assets/covers/v15.jpg" alt="AI 玄关衣帽架带货短视频" loading="lazy" draggable="false">
+        <span class="play"><span><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span></span>
+        <span class="cap">玄关衣帽架 · 家居收纳</span>
+      </div>
+      <div class="vcard" data-v="assets/videos/v16.mp4" data-t="玻璃保鲜盒 · 厨房用品">
+        <span class="ai">AIGC</span>
+        <img src="assets/covers/v16.jpg" alt="AI 玻璃保鲜盒带货短视频" loading="lazy" draggable="false">
+        <span class="play"><span><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span></span>
+        <span class="cap">玻璃保鲜盒 · 厨房用品</span>
+      </div>
+      <div class="vcard" data-v="assets/videos/v17.mp4" data-t="遮阳空顶帽 · 服饰配件">
+        <span class="ai">AIGC</span>
+        <img src="assets/covers/v17.jpg" alt="AI 遮阳空顶帽带货短视频" loading="lazy" draggable="false">
+        <span class="play"><span><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span></span>
+        <span class="cap">遮阳空顶帽 · 服饰配件</span>
+      </div>
     </div>
   </div>
 </section>
@@ -827,19 +860,19 @@ section.dense .shots{margin-top:0}
     <div class="flow">
       <div class="card fl rv d1"><div class="dot">01</div><h3>爆款拆解</h3><p>拆解爆款脚本结构与开场钩子，提炼可复用套路</p></div>
       <div class="card fl rv d2"><div class="dot">02</div><h3>找对标 &amp; 选题</h3><p>锁定对标账号与视频，小成本测试拍摄方向</p></div>
-      <div class="card fl rv d3"><div class="dot">03</div><h3>脚本 &amp; 拍摄</h3><p>写分镜脚本，现场采集拍摄素材</p></div>
-      <div class="card fl rv d4"><div class="dot">04</div><h3>剪辑 &amp; 包装</h3><p>卡点剪辑、音效、花字，提升完播率</p></div>
+      <div class="card fl rv d3"><div class="dot">03</div><h3>脚本 &amp; 拍摄</h3><p>GPT / 豆包拆解卖点写脚本，现场采集拍摄素材</p></div>
+      <div class="card fl rv d4"><div class="dot">04</div><h3>剪辑 &amp; 包装</h3><p>卡点剪辑、音效、花字，即梦补 AIGC 画面，提升完播率</p></div>
       <div class="card fl rv d5"><div class="dot">05</div><h3>发布 &amp; 复盘</h3><p>跟进热门玩法与 BGM，数据验证后放量</p></div>
     </div>
     <div class="aitags rv d4">
       <span class="pill"><i></i>剪映 / CapCut</span>
-      <span class="pill v"><i></i>即梦 AI 视频</span>
+      <span class="pill v"><i></i>即梦 / Seedance</span>
       <span class="pill p"><i></i>Gemini / Flow</span>
       <span class="pill l"><i></i>Agent 工作流</span>
       <span class="pill"><i></i>豆包 / GPT 脚本</span>
     </div>
     <div class="stats rv d5" style="grid-template-columns:repeat(3,1fr)">
-      <div class="statcard"><div class="statnum c1 sm">6–12 条</div><div class="statlabel">日均产出</div></div>
+      <div class="statcard"><div class="statnum c1 sm">6–10 条</div><div class="statlabel">日均产出</div></div>
       <div class="statcard"><div class="statnum c2 sm">全流程</div><div class="statlabel">脚本 · 拍摄 · 剪辑</div></div>
       <div class="statcard"><div class="statnum c3 sm">多平台</div><div class="statlabel">TikTok · 抖音 · 视频号</div></div>
     </div>
@@ -859,7 +892,6 @@ section.dense .shots{margin-top:0}
         <ul>
           <li>担任班级学习委员，带领 8 人学习小组，班级平均分提升 15%。</li>
           <li>使用 Excel 搭建校运会物资调度表格，实现器材智能化管理。</li>
-          <li>处理校内电脑故障 50 余次，整理设备故障解决方案资料库。</li>
         </ul>
       </div>
       <div class="rv d3">
@@ -878,7 +910,7 @@ section.dense .shots{margin-top:0}
     <div class="stats rv d4" style="grid-template-columns:repeat(3,1fr)">
       <div class="statcard"><div class="statnum c1 sm">8 人</div><div class="statlabel">带队学习小组</div></div>
       <div class="statcard"><div class="statnum c2 sm">+15%</div><div class="statlabel">班级平均分提升</div></div>
-      <div class="statcard"><div class="statnum c3 sm">50+ 次</div><div class="statlabel">校内设备维修</div></div>
+      <div class="statcard"><div class="statnum c3 sm">二甲</div><div class="statlabel">普通话等级</div></div>
     </div>
   </div>
 </section>
@@ -890,7 +922,7 @@ section.dense .shots{margin-top:0}
     <div class="center">
       <span class="eyebrow rv">Contact <em>· 求职意向</em></span>
       <h2 class="title rv d1">求职意向 &amp; <span class="g">联系方式</span></h2>
-      <p class="sub rv d2">求职方向 <b style="color:#fff">视频剪辑</b> · 期望薪资 <b style="color:#fff">8–10K</b> · 期望城市 <b style="color:#fff">深圳</b> · 可快速到岗</p>
+      <p class="sub rv d2">求职方向 <b style="color:#fff">TikTok 拍摄剪辑</b> · 期望薪资 <b style="color:#fff">7–9K</b> · 期望城市 <b style="color:#fff">深圳</b> · 可快速到岗</p>
     </div>
     <div class="contactgrid">
       <a class="card cc rv d2" id="ccWx">
@@ -907,7 +939,7 @@ section.dense .shots{margin-top:0}
       </div>
       <div class="card cc rv d5">
         <span class="ci"><svg viewBox="0 0 24 24"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></span>
-        <span><b>求职方向</b><small>视频剪辑 · 8–10K</small></span>
+        <span><b>求职方向</b><small>TikTok 拍摄剪辑 · 7–9K</small></span>
       </div>
     </div>
     <div class="quote rv d5">「 把镜头对准产品，把节奏剪进用户心里 —— <em>让每条视频都值得被看完</em> 」</div>
