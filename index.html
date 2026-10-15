@@ -288,9 +288,9 @@ section{position:relative;min-height:100vh;min-height:100dvh;scroll-snap-align:s
 .shot .cap{position:absolute;left:10px;bottom:9px;font-size:11px;color:rgba(255,255,255,.72);text-shadow:0 1px 6px #000}
 
 /* ================= 视频墙 ================= */
-.vgrid{display:grid;grid-template-columns:repeat(7,1fr);gap:10px}
+.vgrid{display:grid;grid-template-columns:repeat(6,1fr);gap:10px}
 .vcard{position:relative;border-radius:13px;overflow:hidden;border:1px solid var(--line);background:#0d1020;
-  aspect-ratio:3/4;cursor:pointer;transition:.3s var(--ease)}
+  aspect-ratio:1/1;cursor:pointer;transition:.3s var(--ease)}
 .vcard img{width:100%;height:100%;object-fit:cover;display:block;transition:.5s var(--ease);
   user-select:none;-webkit-user-drag:none;pointer-events:none}
 .vcard:hover{border-color:var(--line-cyan);transform:translateY(-4px);
@@ -328,7 +328,9 @@ section{position:relative;min-height:100vh;min-height:100dvh;scroll-snap-align:s
 .shot3 .dc:hover::after{opacity:1}
 
 /* ================= 播放器（防下载） ================= */
-.lb{position:fixed;inset:0;z-index:300;background:rgba(3,4,10,.94);backdrop-filter:blur(18px);
+/* 注：.lb 不再使用 backdrop-filter —— iOS Safari 下祖先节点带 backdrop-filter
+   会让 <video> 渲染成全黑（实测反馈的「播放不了」黑屏主因之一）。改用纯色遮罩。 */
+.lb{position:fixed;inset:0;z-index:300;background:rgba(3,4,10,.955);
   display:flex;align-items:center;justify-content:center;opacity:0;visibility:hidden;transition:.32s var(--ease);padding:72px 40px}
 .lb.on{opacity:1;visibility:visible}
 .lb-stage{position:relative;display:flex;flex-direction:column;align-items:center;gap:13px;
@@ -344,16 +346,41 @@ section{position:relative;min-height:100vh;min-height:100dvh;scroll-snap-align:s
   border:1px solid var(--line);background:rgba(255,255,255,.05);color:#fff;font-size:22px;line-height:1;
   display:flex;align-items:center;justify-content:center;transition:.28s var(--ease)}
 .lb-x:hover{border-color:var(--line-cyan);background:rgba(0,212,255,.16);transform:rotate(90deg)}
+/* 隐藏下载按钮（controlsList="nodownload" 已在 Chrome/Edge/Safari 生效，
+   这里仅兜底旧版 Chrome；不要改 webkit-media-controls-panel 宽度，
+   那会把 Safari/微信内核的播放按钮挤出可视区 → 用户以为「播放不了」。 */
 video::-internal-media-controls-download-button{display:none}
-video::-webkit-media-controls-enclosure{overflow:hidden}
-video::-webkit-media-controls-panel{width:calc(100% + 32px)}
 
-@media (max-width:1080px){.vgrid{grid-template-columns:repeat(5,1fr)}}
+/* 加载中 / 加载失败 提示层（覆盖播放器） */
+.lb-msg{position:absolute;inset:0;z-index:5;display:none;flex-direction:column;align-items:center;
+  justify-content:center;gap:11px;padding:24px;text-align:center;border-radius:16px;
+  background:rgba(3,4,10,.74)}
+.lb-msg.on{display:flex}
+.lb-msg .m-t{font-size:15px;font-weight:600;color:#fff;letter-spacing:.04em}
+.lb-msg .m-s{font-size:12.5px;line-height:1.75;color:rgba(255,255,255,.64);max-width:330px}
+.lb-msg .m-spin{width:26px;height:26px;border-radius:50%;border:2px solid rgba(0,212,255,.22);
+  border-top-color:var(--cyan);animation:spin .8s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.lb-msg .m-b{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin-top:4px}
+.lb-msg button,.lb-msg a{font:inherit;font-size:12.5px;line-height:1;padding:10px 16px;border-radius:999px;
+  cursor:pointer;border:1px solid var(--line-cyan);background:rgba(0,212,255,.12);color:#fff;
+  text-decoration:none;display:inline-flex;align-items:center}
+.lb-msg button:hover,.lb-msg a:hover{background:rgba(0,212,255,.26)}
+.lb-msg .m-play{font-size:15px;font-weight:600;padding:15px 28px;box-shadow:0 10px 34px rgba(0,212,255,.35)}
+
+/* 微信内置浏览器提示条 */
+.wx-tip{position:fixed;left:50%;top:14px;transform:translateX(-50%);z-index:400;max-width:92vw;
+  display:none;align-items:center;gap:10px;padding:11px 16px;border-radius:12px;
+  background:rgba(8,10,22,.94);border:1px solid var(--line-cyan);color:rgba(255,255,255,.86);
+  font-size:12.5px;line-height:1.5;box-shadow:0 12px 34px rgba(0,0,0,.5)}
+.wx-tip.on{display:flex;animation:fadeIn .4s ease}
+.wx-tip b{font-weight:400;opacity:.55;cursor:pointer;font-size:15px;line-height:1}
+
+@media (max-width:1080px){.vgrid{grid-template-columns:repeat(4,1fr)}}
 @media (max-width:900px){.vgrid{grid-template-columns:repeat(3,1fr)}.lb{padding:56px 16px}}
 @media print{.lb{display:none!important}.vgrid{grid-template-columns:repeat(4,1fr)}}
-/* 屏幕不够高时（1366×768 笔记本实测视口只有 660~700）17 支作品会撑出第 3 行、
-   把最后一行的标题条挤出可视区 → 改为 9 列 2 行，整屏可见不被裁切。
-   960px 是实测阈值：>=961 时 3 行仍能整屏放下，<=960 就必须降为 2 行。 */
+/* 屏幕不够高时（1366×768 笔记本实测视口只有 660~700）
+   18 支作品：>=961px 高 → 6 列 × 3 行；<=960px 高 → 降为 9 列 × 2 行，整屏可见不被裁切。 */
 @media (max-height:960px) and (min-width:901px){
   .vgrid{grid-template-columns:repeat(9,1fr);gap:8px}
 }
@@ -756,7 +783,7 @@ section.dense .shots{margin-top:0}
   <div class="wrap">
     <span class="eyebrow rv">Works <em>· 作品展示</em></span>
     <h2 class="title rv d1">作品<span class="g">展示</span></h2>
-    <p class="sub rv d2" style="margin-bottom:18px">17 支带货短视频作品 · 含 5 支 AIGC 达人出镜 · 实拍剪辑 + AI 生产 · 点击卡片播放</p>
+    <p class="sub rv d2" style="margin-bottom:18px">18 支带货短视频作品 · 含 6 支 AIGC 达人出镜 · 实拍剪辑 + AI 生产 · 点击卡片播放</p>
     <div class="vgrid rv d3">
       <div class="vcard" data-v="assets/videos/v01.mp4" data-t="移动电源 · 数码配件">
         <img src="assets/covers/v01.jpg" alt="移动电源带货短视频" loading="lazy" draggable="false">
@@ -848,6 +875,12 @@ section.dense .shots{margin-top:0}
         <img src="assets/covers/v17.jpg" alt="AI 遮阳空顶帽带货短视频" loading="lazy" draggable="false">
         <span class="play"><span><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span></span>
         <span class="cap">遮阳空顶帽 · 服饰配件</span>
+      </div>
+      <div class="vcard" data-v="assets/videos/v18.mp4" data-t="AIGC 宠物用品">
+        <span class="ai">AIGC</span>
+        <img src="assets/covers/v18.jpg" alt="AIGC 宠物用品带货短视频" loading="lazy" draggable="false">
+        <span class="play"><span><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span></span>
+        <span class="cap">AIGC 宠物用品</span>
       </div>
     </div>
   </div>
@@ -961,12 +994,16 @@ section.dense .shots{margin-top:0}
   <button class="lb-x" id="lbX" aria-label="关闭">&times;</button>
   <div class="lb-stage">
     <video id="lbVideo" controls controlsList="nodownload noplaybackrate noremoteplayback"
-      disablePictureInPicture playsinline preload="metadata" oncontextmenu="return false"></video>
+      disablePictureInPicture playsinline webkit-playsinline x5-playsinline x5-video-player-type="h5"
+      preload="metadata" oncontextmenu="return false"></video>
+    <div class="lb-msg" id="lbMsg"></div>
     <img id="lbImg" alt="" draggable="false" style="display:none">
     <div class="lb-cap" id="lbCap"></div>
     <div class="lb-tip">作品仅供展示 · 请勿转载</div>
   </div>
 </div>
+
+<div class="wx-tip" id="wxTip">微信内若视频无法播放：点右上角 <b style="opacity:.9">···</b> 选择「在浏览器打开」<b id="wxTipX">&times;</b></div>
 
 <script>
 (function(){
@@ -1161,29 +1198,127 @@ section.dense .shots{margin-top:0}
   img.addEventListener('error',()=>{ img.style.display='none'; ph.style.display='flex'; });
   img.src='assets/me.jpg';
 
-  /* ---------- 作品播放（防下载） ---------- */
+  /* ---------- 作品播放（防下载 + 多链路兜底） ---------- */
   const lb = document.getElementById('lb');
   const lbVideo = document.getElementById('lbVideo');
   const lbCap = document.getElementById('lbCap');
   const lbImg = document.getElementById('lbImg');
+  const lbMsg = document.getElementById('lbMsg');
+  /* 备用线路：jsDelivr（另一套 CDN）。主线路（本站 github.io）加载失败时自动切换，
+     用于 github.io 在部分网络（尤其国内部分运营商）被限速/拦截的情况。 */
+  const ALT = 'https://cdn.jsdelivr.net/gh/yuhao3261-cyber/portfolio-web@master/';
+  const WX = /MicroMessenger/i.test(navigator.userAgent);
+  let curSrc = '', altMode = false, attempt = 0, loadTimer = null, msgHtml = '';
+
+  function showMsg(html, cls){
+    if(html === msgHtml && lbMsg.className.indexOf('on') > -1) return;
+    msgHtml = html;
+    lbMsg.innerHTML = html;
+    lbMsg.className = 'lb-msg on' + (cls ? ' ' + cls : '');
+  }
+  function clearMsg(){ msgHtml = ''; lbMsg.className = 'lb-msg'; lbMsg.innerHTML = ''; }
+  function route(u){ return altMode ? ALT + u.replace(/^\.?\//, '') : u; }
+  function sizeOf(u){
+    if(!SIZES[u]) return '';
+    return '（' + (SIZES[u] > 1048576 ? (SIZES[u] / 1048576).toFixed(1) + ' MB'
+                                     : Math.round(SIZES[u] / 1024) + ' KB') + '）';
+  }
+  /* 体积（预取一次，提示层里告诉用户要等多久；失败也不影响播放） */
+  const SIZES = {};
+  function fetchSize(u, cb){
+    if(SIZES[u] !== undefined || !window.fetch){ cb(); return; }
+    fetch(u, {method:'HEAD'}).then(function(r){
+      SIZES[u] = parseInt(r.headers.get('content-length') || '0', 10) || 0;
+    }).catch(function(){ SIZES[u] = 0; }).then(cb);
+  }
+  function loading(my, src, slow){
+    if(my !== attempt) return;
+    showMsg('<div class="m-spin"></div><div class="m-s">' + (slow ? '网络较慢，仍在加载' : '视频加载中') +
+      sizeOf(src) + (slow ? '…<br>可继续等待，也可以先在新窗口打开' : '…') + '</div>' +
+      (slow ? '<div class="m-b"><a href="' + route(src) + '" target="_blank" rel="noopener">新窗口打开</a></div>' : ''),
+      'load');
+    if(slow) bindTap();
+  }
+  function bindTap(){
+    var b = lbMsg.querySelector('[data-a="play"]');
+    if(b) b.addEventListener('click', function(){
+      var p = lbVideo.play();
+      if(p && p.catch) p.catch(function(){});
+    });
+    var r = lbMsg.querySelector('[data-a="retry"]');
+    if(r) r.addEventListener('click', function(){ altMode = !altMode; load(curSrc); });
+  }
+
+  function load(src){
+    var my = ++attempt;
+    clearTimeout(loadTimer);
+    curSrc = src;
+    lbVideo.poster = src.indexOf('assets/videos/') === 0
+      ? src.replace('assets/videos/', 'assets/covers/').replace(/\.mp4$/, '.jpg') : '';
+    lbVideo.src = route(src);
+    lbVideo.load();
+    loading(my, src, false);
+    fetchSize(src, function(){ if(my === attempt && lbVideo.readyState < 2) loading(my, src, false); });
+    var p = lbVideo.play();
+    if(p && p.catch) p.catch(function(){
+      // 手机端自动播放被拦（iOS 低电量模式等）；真错误交给 error 事件，别覆盖它
+      if(my !== attempt || lbVideo.error) return;
+      if(lbVideo.readyState >= 2){ clearMsg(); return; }
+      showMsg('<button class="m-play" data-a="play">▶ 点击播放</button>', 'load');
+      bindTap();
+    });
+    loadTimer = setTimeout(function(){
+      if(my !== attempt || lbVideo.readyState >= 2) return;
+      loading(my, src, true);
+    }, 12000);
+  }
+
+  function loadFail(){
+    if(!curSrc) return;
+    showMsg('<div class="m-t">视频加载失败</div>' +
+      '<div class="m-s">可能是网络限制或信号较弱。建议换 Wi-Fi / 手机流量后重试' +
+      (WX ? '；或点右上角 ··· 选择「在浏览器打开」' : '') + '</div>' +
+      '<div class="m-b"><button data-a="retry">切换线路重试</button>' +
+      '<a href="' + route(curSrc) + '" target="_blank" rel="noopener">新窗口打开</a></div>', 'fail');
+    bindTap();
+  }
+
   function openLB(src, title, kind){
+    clearTimeout(loadTimer); clearMsg();
     if(kind === 'img'){
       lbVideo.pause(); lbVideo.removeAttribute('src'); lbVideo.style.display = 'none';
       lbImg.src = src; lbImg.style.display = 'block';
     }else{
+      altMode = false;
       lbImg.removeAttribute('src'); lbImg.style.display = 'none';
-      lbVideo.style.display = 'block'; lbVideo.src = src;
-      setTimeout(function(){ lbVideo.play().catch(function(){}); }, 130);
+      lbVideo.style.display = 'block';
+      load(src);
     }
     lbCap.textContent = title || '';
     lb.classList.add('on');
   }
   function closeLB(){
+    clearTimeout(loadTimer); clearMsg();
+    altMode = false;
     lbVideo.pause();
     lbVideo.removeAttribute('src');
     lbVideo.load();
     lb.classList.remove('on');
   }
+  lbVideo.addEventListener('loadeddata', function(){ clearTimeout(loadTimer); clearMsg(); });
+  lbVideo.addEventListener('playing', function(){ clearTimeout(loadTimer); clearMsg(); });
+  lbVideo.addEventListener('error', function(){
+    if(!lbVideo.getAttribute('src') || !curSrc) return;
+    clearTimeout(loadTimer);
+    if(!altMode){
+      // 主线路（本站域名）拿不到文件 → 自动切 jsDelivr 备用线路
+      altMode = true;
+      showMsg('<div class="m-spin"></div><div class="m-s">主线路加载失败，正在切换备用线路…</div>', 'load');
+      loadTimer = setTimeout(function(){ load(curSrc); }, 300);
+      return;
+    }
+    loadFail();
+  });
   document.querySelectorAll('.vcard').forEach(function(c){
     c.addEventListener('click', function(){ openLB(c.dataset.v, c.dataset.t, 'video'); });
   });
@@ -1195,6 +1330,13 @@ section.dense .shots{margin-top:0}
   window.addEventListener('keydown', function(e){
     if(e.key === 'Escape' && lb.classList.contains('on')){ closeLB(); }
   }, true);
+  /* 微信内置浏览器提示（视频在该内核下偶发黑屏/不播） */
+  if(WX){
+    var tip = document.getElementById('wxTip');
+    tip.classList.add('on');
+    document.getElementById('wxTipX').addEventListener('click', function(){ tip.classList.remove('on'); });
+    setTimeout(function(){ tip.classList.remove('on'); }, 12000);
+  }
   // 禁右键 / 禁拖拽 / 禁画中画
   window.addEventListener('contextmenu', function(e){
     if(e.target.closest('video, .vcard, .photoframe, .shot')) e.preventDefault();
