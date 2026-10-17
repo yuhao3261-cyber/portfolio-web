@@ -612,6 +612,50 @@ section.dense .shots{margin-top:0}
 .measuring .ch{transition:none!important;transform:none!important;opacity:0!important}
 @media (prefers-reduced-motion:reduce){.ch{transform:none;opacity:1;transition:none}}
 
+/* ④ 胶片颗粒 + 扫描线 */
+.grain{position:fixed;inset:0;z-index:58;pointer-events:none;opacity:.05;mix-blend-mode:overlay;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.82' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='0.6'/%3E%3C/svg%3E");
+  background-size:160px 160px}
+.scan{position:fixed;inset:0;z-index:57;pointer-events:none;opacity:.055;
+  background:repeating-linear-gradient(to bottom,rgba(255,255,255,.09) 0 1px,transparent 1px 3px)}
+@media print{.grain,.scan{display:none!important}}
+
+/* ⑤ 玻璃卡聚光（跟随鼠标；未悬停时 -999px 让高光出画，避免整卡泛蓝） */
+.card{background-image:radial-gradient(260px circle at var(--mx,-999px) var(--my,-999px),rgba(0,212,255,.20),transparent 62%),
+  linear-gradient(160deg,rgba(255,255,255,.055),rgba(255,255,255,.018))}
+.card:hover{background-image:radial-gradient(260px circle at var(--mx,-999px) var(--my,-999px),rgba(0,212,255,.26),transparent 62%),
+  linear-gradient(160deg,rgba(255,255,255,.075),rgba(255,255,255,.025))}
+.statcard{background-image:radial-gradient(240px circle at var(--mx,-999px) var(--my,-999px),rgba(139,92,246,.24),transparent 64%),
+  linear-gradient(160deg,rgba(255,255,255,.05),rgba(255,255,255,.015))}
+
+/* ⑥ 章节水印入场 */
+.watermark{opacity:0;transform:translate3d(46px,-12px,0) scale(.96);
+  transition:opacity 1s var(--ease),transform 1.15s var(--ease)}
+section.wm-on .watermark{opacity:1;transform:none}
+@media print{.watermark{opacity:1!important;transform:none!important}}
+
+/* ⑦ 关键词滚动带（右下让开大页码，做成悬浮 dock） */
+.mqbar{position:absolute;left:30px;right:112px;bottom:14px;height:46px;display:flex;align-items:center;gap:16px;
+  padding-left:16px;overflow:hidden;z-index:3;border-radius:12px;
+  border:1px solid rgba(255,255,255,.09);background:rgba(8,10,20,.62);
+  backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}
+.mqtag{font-family:var(--mono);font-size:10.5px;letter-spacing:.26em;color:rgba(0,212,255,.78);flex:0 0 auto;
+  border:1px solid rgba(0,212,255,.28);border-radius:999px;padding:5px 11px;white-space:nowrap;
+  background:rgba(0,212,255,.07)}
+.mq{flex:1 1 auto;overflow:hidden;
+  mask-image:linear-gradient(90deg,transparent,#000 4%,#000 96%,transparent);
+  -webkit-mask-image:linear-gradient(90deg,transparent,#000 4%,#000 96%,transparent)}
+.mq-track{display:flex;width:max-content;will-change:transform;animation:mq 38s linear infinite}
+.mqbar:hover .mq-track{animation-play-state:paused}
+.mq-track span{display:inline-flex;align-items:center;gap:18px;padding-right:18px;white-space:nowrap;
+  font-family:var(--mono);font-size:12px;letter-spacing:.2em;color:rgba(255,255,255,.52);text-transform:uppercase}
+.mq-track span::after{content:'';width:5px;height:5px;transform:rotate(45deg);background:rgba(0,212,255,.55)}
+@keyframes mq{to{transform:translateX(-33.3333%)}}
+@media (max-height:760px){.mqbar{display:none}}
+@media (max-width:760px){.mqbar{display:none}}
+@media (prefers-reduced-motion:reduce){.mq-track{animation:none}}
+@media print{.mqbar{display:none!important}}
+
 </style>
 </head>
 <body>
@@ -639,6 +683,8 @@ section.dense .shots{margin-top:0}
 </div>
 <div class="cur-halo" id="halo"></div>
 <div class="cur-dot" id="dot"></div>
+<div class="grain" aria-hidden="true"></div>
+<div class="scan" aria-hidden="true"></div>
 
 <div class="topbar">
   <div class="brand"><i></i>作品集 · 简历</div>
@@ -1034,6 +1080,12 @@ section.dense .shots{margin-top:0}
       <a class="btn ghost" href="#s1" id="toTop">回到首页</a>
     </div>
     <div class="dots" id="dots"></div>
+  </div>
+  <div class="mqbar" aria-hidden="true">
+    <span class="mqtag">KEYWORDS</span>
+    <div class="mq">
+      <div class="mq-track" id="mqTrack"><span>TikTok 美区带货</span><span>AIGC 达人出镜</span><span>CapCut / 剪映</span><span>30–60s 口播</span><span>日更 6–10 条</span><span>单条 25 万+ 播放</span><span>卡点剪辑</span><span>完播率优化</span><span>即梦 / Seedance</span><span>多平台分发</span></div>
+    </div>
   </div>
 </section>
 
@@ -1605,6 +1657,42 @@ section.dense .shots{margin-top:0}
           el.addEventListener('pointerleave', function(){ el.style.transform = ''; });
         })(mag[k]);
       }
+    }
+
+    /* ---- ⑤ 关键词滚动带：复制三份 → -33.33% 无缝循环 ---- */
+    var track = document.getElementById('mqTrack');
+    if(track){
+      var base = track.innerHTML;
+      track.innerHTML = base + base + base;
+      if(reduce) track.style.animation = 'none';
+    }
+
+    /* ---- ⑥ 玻璃卡聚光：光标位置写进 --mx/--my ---- */
+    if(!reduce && window.matchMedia('(hover:hover)').matches){
+      var lastLit = null;
+      document.addEventListener('pointermove', function(e){
+        var t = e.target && e.target.closest ? e.target.closest('.card, .statcard') : null;
+        if(lastLit && lastLit !== t){
+          lastLit.style.removeProperty('--mx');
+          lastLit.style.removeProperty('--my');
+        }
+        if(t){
+          var r = t.getBoundingClientRect();
+          t.style.setProperty('--mx', (e.clientX - r.left).toFixed(0) + 'px');
+          t.style.setProperty('--my', (e.clientY - r.top).toFixed(0) + 'px');
+        }
+        lastLit = t;
+      }, {passive:true});
+    }
+
+    /* ---- ⑦ 章节大号页码入场 ---- */
+    if('IntersectionObserver' in window){
+      var wio = new IntersectionObserver(function(es){
+        es.forEach(function(e){ e.target.classList.toggle('wm-on', e.isIntersecting); });
+      }, {threshold: 0.45});
+      document.querySelectorAll('section').forEach(function(s){ wio.observe(s); });
+    }else{
+      document.querySelectorAll('section').forEach(function(s){ s.classList.add('wm-on'); });
     }
   })();
 
