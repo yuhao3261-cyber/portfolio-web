@@ -1463,7 +1463,7 @@ section.dense .shots{margin-top:0}
       setTimeout(fxReady, 60);
     }else if(boot){
       var num = document.getElementById('bootNum'), bar = document.getElementById('bootBar');
-      var t0 = 0, DUR = 1150, closed = false;
+      var DUR = 1150, closed = false;
       function ease(p){ return 1 - Math.pow(1 - p, 3); }
       function closeBoot(){
         if(closed) return; closed = true;
@@ -1472,14 +1472,22 @@ section.dense .shots{margin-top:0}
         setTimeout(function(){ boot.classList.add('gone'); }, 1000);
         setTimeout(fxReady, 620);
       }
-      (function tick(){
-        if(closed) return;
-        if(!t0) t0 = performance.now();          /* 首帧后才开始计数，保证从 0% 走满 */
-        var p = Math.min(1, (performance.now() - t0) / DUR), v = ease(p);
-        num.textContent = Math.round(v * 100);
-        bar.style.width = (v * 100) + '%';
-        if(p < 1) requestAnimationFrame(tick); else setTimeout(closeBoot, 170);
-      })();
+      /* 等 load 完成再计数：首屏解码期间主线程是堵的，提前计时只会「卡在 0% 然后跳到 90%」 */
+      var started = false;
+      function startCount(){
+        if(started || closed) return; started = true;
+        var t0 = performance.now();
+        (function tick(){
+          if(closed) return;
+          var p = Math.min(1, (performance.now() - t0) / DUR), v = ease(p);
+          num.textContent = Math.round(v * 100);
+          bar.style.width = (v * 100) + '%';
+          if(p < 1) requestAnimationFrame(tick); else setTimeout(closeBoot, 170);
+        })();
+      }
+      if(document.readyState === 'complete') startCount();
+      else window.addEventListener('load', startCount, {once:true});
+      setTimeout(startCount, 2500);   /* load 迟迟不来也别让加载页挂着 */
       boot.addEventListener('click', closeBoot);
       window.addEventListener('keydown', closeBoot, {once:true});
       setTimeout(closeBoot, 3200);
