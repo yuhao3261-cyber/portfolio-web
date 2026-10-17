@@ -288,6 +288,50 @@ section{position:relative;min-height:100vh;min-height:100dvh;scroll-snap-align:s
 .shot .cap{position:absolute;left:10px;bottom:9px;font-size:11px;color:rgba(255,255,255,.72);text-shadow:0 1px 6px #000}
 
 /* ================= 视频墙 ================= */
+/* ===== 作品分类目录（参考 workbuddy 式三段目录） ===== */
+.catgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:24px}
+.catcard{position:relative;border-radius:18px;overflow:hidden;cursor:pointer;
+  border:1px solid var(--line);background:#0d1020;transition:.36s var(--ease)}
+.catcard:hover{transform:translateY(-6px);border-color:var(--line-cyan);
+  box-shadow:0 26px 62px rgba(0,0,0,.58),0 0 40px rgba(0,212,255,.16)}
+.cimg{position:relative;aspect-ratio:4/3;overflow:hidden}
+.cimg img{width:100%;height:100%;object-fit:cover;display:block;transition:.6s var(--ease)}
+.catcard:hover .cimg img{transform:scale(1.07)}
+.cimg::after{content:'';position:absolute;inset:0;
+  background:linear-gradient(transparent 42%,rgba(10,12,24,.94))}
+.cimg .cn{position:absolute;left:13px;top:11px;z-index:2;font-family:var(--mono);font-size:10px;
+  letter-spacing:.11em;color:rgba(255,255,255,.92);background:rgba(6,8,18,.55);
+  border:1px solid rgba(255,255,255,.18);padding:3px 9px;border-radius:999px}
+.cmeta{padding:14px 17px 19px;position:relative;z-index:2}
+.cnum{font-family:var(--mono);font-size:10px;letter-spacing:.13em;color:var(--cyan);opacity:.82}
+.cmeta h3{font-size:19px;margin:7px 0 5px}
+.cmeta p{font-size:12px;color:var(--muted);line-height:1.55}
+.cgo{position:absolute;right:15px;bottom:16px;z-index:2;font-size:11px;color:#fff;
+  opacity:0;transform:translateX(-7px);transition:.34s var(--ease)}
+.catcard:hover .cgo{opacity:.92;transform:none}
+/* 分类弹层 */
+.catlb{position:fixed;inset:0;z-index:290;background:rgba(3,4,10,.965);
+  display:flex;align-items:center;justify-content:center;opacity:0;visibility:hidden;
+  transition:.3s var(--ease);padding:56px 36px}
+.catlb.on{opacity:1;visibility:visible}
+.catlb-in{position:relative;width:min(1160px,94vw);max-height:84vh;overflow-y:auto;
+  border:1px solid var(--line);border-radius:20px;background:#0a0c19;padding:24px 26px 28px;
+  box-shadow:0 40px 120px rgba(0,0,0,.72)}
+/* .lb-x 原本是 absolute 定位于播放器，复用到分类弹层需改为静态流内，否则会跑到页面右上角被导航栏挡住 */
+.catlb-top .lb-x{position:static;flex:0 0 auto;width:38px;height:38px;font-size:20px}
+.catlb-top{display:flex;align-items:flex-start;justify-content:space-between;gap:20px;margin-bottom:18px}
+.catlb-top h3{font-size:22px;margin-top:6px}
+.catlb .vgrid{grid-template-columns:repeat(6,1fr)}
+@media (max-width:1080px){
+  .catgrid{grid-template-columns:1fr;gap:12px}
+  .cimg{aspect-ratio:16/9}
+  .catlb .vgrid{grid-template-columns:repeat(3,1fr)}
+}
+@media (max-height:860px){
+  .cimg{aspect-ratio:16/9}
+  .cmeta h3{font-size:17px}
+  .cmeta p{font-size:11.5px}
+}
 .vgrid{display:grid;grid-template-columns:repeat(6,1fr);gap:10px}
 .vcard{position:relative;border-radius:13px;overflow:hidden;border:1px solid var(--line);background:#0d1020;
   aspect-ratio:1/1;cursor:pointer;transition:.3s var(--ease)}
@@ -782,111 +826,65 @@ section.dense .shots{margin-top:0}
   <div class="watermark">06</div>
   <div class="wrap">
     <span class="eyebrow rv">Works <em>· 作品展示</em></span>
-    <h2 class="title rv d1">作品<span class="g">展示</span></h2>
-    <p class="sub rv d2" style="margin-bottom:18px">18 支带货短视频作品 · 含 6 支 AIGC 达人出镜 · 实拍剪辑 + AI 生产 · 点击卡片播放</p>
-    <div class="vgrid rv d3">
-      <div class="vcard" data-v="assets/videos/v01.mp4" data-t="移动电源 · 数码配件">
-        <img src="assets/covers/v01.jpg" alt="移动电源带货短视频" loading="lazy" draggable="false">
-        <span class="play"><span><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span></span>
-        <span class="cap">移动电源 · 数码配件</span>
+    <h2 class="title rv d1">作品<span class="g">目录</span></h2>
+    <p class="sub rv d2">18 支带货短视频 · 实拍剪辑 + AIGC 生成 · 点击分类查看</p>
+
+    <div class="catgrid rv d3">
+      <div class="catcard" data-cat="commercial">
+        <div class="cimg">
+          <span class="cn">12 WORKS</span>
+          <img src="assets/covers/v13.jpg" alt="TikTok 带货短视频" loading="lazy" draggable="false">
+        </div>
+        <div class="cmeta">
+          <span class="cnum">01 / COMMERCIAL VIDEO</span>
+          <h3>TikTok 带货短视频</h3>
+          <p>数码 3C · 小家电 · 家居家纺 · 出行装备</p>
+        </div>
+        <span class="cgo">查看 ▷</span>
       </div>
-      <div class="vcard" data-v="assets/videos/v02.mp4" data-t="无线耳机 · 数码配件">
-        <img src="assets/covers/v02.jpg" alt="无线耳机带货短视频" loading="lazy" draggable="false">
-        <span class="play"><span><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span></span>
-        <span class="cap">无线耳机 · 数码配件</span>
+
+      <div class="catcard" data-cat="aigc">
+        <div class="cimg">
+          <span class="cn">6 WORKS</span>
+          <img src="assets/covers/v18.jpg" alt="AIGC 创意视频" loading="lazy" draggable="false">
+        </div>
+        <div class="cmeta">
+          <span class="cnum">02 / AIGC CREATIVE</span>
+          <h3>AIGC 创意视频</h3>
+          <p>AI 达人出镜 · 商品场景生成 · 全流程 AI 生产</p>
+        </div>
+        <span class="cgo">查看 ▷</span>
       </div>
-      <div class="vcard" data-v="assets/videos/v03.mp4" data-t="数码开箱 · 3C 数码">
-        <img src="assets/covers/v03.jpg" alt="数码产品开箱短视频" loading="lazy" draggable="false">
-        <span class="play"><span><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span></span>
-        <span class="cap">数码开箱 · 3C 数码</span>
-      </div>
-      <div class="vcard" data-v="assets/videos/v04.mp4" data-t="行李箱绑带 · 出行装备">
-        <img src="assets/covers/v04.jpg" alt="行李箱绑带短视频" loading="lazy" draggable="false">
-        <span class="play"><span><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span></span>
-        <span class="cap">行李箱绑带 · 出行装备</span>
-      </div>
-      <div class="vcard" data-v="assets/videos/v05.mp4" data-t="行李箱 · 出行装备">
-        <img src="assets/covers/v05.jpg" alt="行李箱带货短视频" loading="lazy" draggable="false">
-        <span class="play"><span><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span></span>
-        <span class="cap">行李箱 · 出行装备</span>
-      </div>
-      <div class="vcard" data-v="assets/videos/v06.mp4" data-t="咖啡壶 · 小家电开箱">
-        <img src="assets/covers/v06.jpg" alt="咖啡壶开箱短视频" loading="lazy" draggable="false">
-        <span class="play"><span><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span></span>
-        <span class="cap">咖啡壶 · 小家电开箱</span>
-      </div>
-      <div class="vcard" data-v="assets/videos/v07.mp4" data-t="字母项链 · 珠宝首饰">
-        <span class="ai">AIGC</span>
-        <img src="assets/covers/v07.jpg" alt="字母项链带货短视频" loading="lazy" draggable="false">
-        <span class="play"><span><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span></span>
-        <span class="cap">字母项链 · 珠宝首饰</span>
-      </div>
-      <div class="vcard" data-v="assets/videos/v08.mp4" data-t="破壁机 · 小家电">
-        <img src="assets/covers/v08.jpg" alt="破壁机带货短视频" loading="lazy" draggable="false">
-        <span class="play"><span><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span></span>
-        <span class="cap">破壁机 · 小家电</span>
-      </div>
-      <div class="vcard" data-v="assets/videos/v09.mp4" data-t="玻璃养生壶 · 小家电">
-        <img src="assets/covers/v09.jpg" alt="玻璃养生壶短视频" loading="lazy" draggable="false">
-        <span class="play"><span><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span></span>
-        <span class="cap">玻璃养生壶 · 小家电</span>
-      </div>
-      <div class="vcard" data-v="assets/videos/v10.mp4" data-t="灶台清洁 · 家居日用">
-        <span class="ai">AIGC</span>
-        <img src="assets/covers/v10.jpg" alt="灶台清洁短视频" loading="lazy" draggable="false">
-        <span class="play"><span><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span></span>
-        <span class="cap">灶台清洁 · 家居日用</span>
-      </div>
-      <div class="vcard" data-v="assets/videos/v11.mp4" data-t="宠物湿巾 · 宠物用品">
-        <img src="assets/covers/v11.jpg" alt="宠物湿巾带货短视频" loading="lazy" draggable="false">
-        <span class="play"><span><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span></span>
-        <span class="cap">宠物湿巾 · 宠物用品</span>
-      </div>
-      <div class="vcard" data-v="assets/videos/v12.mp4" data-t="解压玩具 · 生活好物">
-        <img src="assets/covers/v12.jpg" alt="解压玩具带货短视频" loading="lazy" draggable="false">
-        <span class="play"><span><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span></span>
-        <span class="cap">解压玩具 · 生活好物</span>
-      </div>
-      <div class="vcard" data-v="assets/videos/v13.mp4" data-t="家纺床品 · 家居">
-        <span class="hot">爆款</span>
-        <img src="assets/covers/v13.jpg" alt="家纺床品带货短视频" loading="lazy" draggable="false">
-        <span class="play"><span><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span></span>
-        <span class="cap">家纺床品 · 家居</span>
-      </div>
-      <div class="vcard" data-v="assets/videos/v14.mp4" data-t="宠物凉感垫 · 宠物用品">
-        <img src="assets/covers/v14.jpg" alt="宠物凉感垫带货短视频" loading="lazy" draggable="false">
-        <span class="play"><span><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span></span>
-        <span class="cap">宠物凉感垫 · 宠物用品</span>
-      </div>
-      <div class="vcard" data-v="assets/videos/v15.mp4" data-t="玄关衣帽架 · 家居收纳">
-        <span class="ai">AIGC</span>
-        <img src="assets/covers/v15.jpg" alt="AI 玄关衣帽架带货短视频" loading="lazy" draggable="false">
-        <span class="play"><span><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span></span>
-        <span class="cap">玄关衣帽架 · 家居收纳</span>
-      </div>
-      <div class="vcard" data-v="assets/videos/v16.mp4" data-t="玻璃保鲜盒 · 厨房用品">
-        <span class="ai">AIGC</span>
-        <img src="assets/covers/v16.jpg" alt="AI 玻璃保鲜盒带货短视频" loading="lazy" draggable="false">
-        <span class="play"><span><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span></span>
-        <span class="cap">玻璃保鲜盒 · 厨房用品</span>
-      </div>
-      <div class="vcard" data-v="assets/videos/v17.mp4" data-t="遮阳空顶帽 · 服饰配件">
-        <span class="ai">AIGC</span>
-        <img src="assets/covers/v17.jpg" alt="AI 遮阳空顶帽带货短视频" loading="lazy" draggable="false">
-        <span class="play"><span><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span></span>
-        <span class="cap">遮阳空顶帽 · 服饰配件</span>
-      </div>
-      <div class="vcard" data-v="assets/videos/v18.mp4" data-t="AIGC 宠物用品">
-        <span class="ai">AIGC</span>
-        <img src="assets/covers/v18.jpg" alt="AIGC 宠物用品带货短视频" loading="lazy" draggable="false">
-        <span class="play"><span><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span></span>
-        <span class="cap">AIGC 宠物用品</span>
+
+      <div class="catcard" data-cat="picks">
+        <div class="cimg">
+          <span class="cn">3 WORKS</span>
+          <img src="assets/covers/v14.jpg" alt="精选案例" loading="lazy" draggable="false">
+        </div>
+        <div class="cmeta">
+          <span class="cnum">03 / HIGHLIGHTS</span>
+          <h3>精选案例</h3>
+          <p>25 万播放爆款 · 宠物垂类 · AIGC 全生成</p>
+        </div>
+        <span class="cgo">查看 ▷</span>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ==================== 07 生产流程 ==================== -->
+<div class="catlb" id="catLB">
+  <div class="catlb-in">
+    <div class="catlb-top">
+      <div>
+        <span class="cnum" id="catNum"></span>
+        <h3 id="catTitle"></h3>
+      </div>
+      <button class="lb-x" id="catX" aria-label="关闭">&times;</button>
+    </div>
+    <div class="vgrid" id="catGrid"></div>
+  </div>
+</div>
+
 <section id="s7" class="dense">
   <div class="watermark">07</div>
   <div class="wrap">
@@ -1282,6 +1280,58 @@ section.dense .shots{margin-top:0}
       '<a href="' + route(curSrc) + '" target="_blank" rel="noopener">新窗口打开</a></div>', 'fail');
     bindTap();
   }
+
+  // ===== 作品分类目录 =====
+  (function(){
+    const CAT = {
+      commercial: { num:'01 / COMMERCIAL VIDEO', title:'TikTok 带货短视频', items:[
+        ['v01','移动电源 · 数码配件'], ['v02','无线耳机 · 数码配件'], ['v03','数码开箱 · 3C 数码'],
+        ['v04','行李箱绑带 · 出行装备'], ['v05','行李箱 · 出行装备'], ['v06','咖啡壶 · 小家电开箱'],
+        ['v08','破壁机 · 小家电'], ['v09','玻璃养生壶 · 小家电'], ['v11','宠物湿巾 · 宠物用品'],
+        ['v12','解压玩具 · 生活好物'], ['v13','家纺床品 · 家居'], ['v14','宠物凉感垫 · 宠物用品']]},
+      aigc: { num:'02 / AIGC CREATIVE', title:'AIGC 创意视频', items:[
+        ['v07','字母项链 · 珠宝首饰'], ['v10','灶台清洁 · 家居日用'], ['v15','玄关衣帽架 · 家居收纳'],
+        ['v16','玻璃保鲜盒 · 厨房用品'], ['v17','遮阳空顶帽 · 服饰配件'], ['v18','AIGC 宠物用品']]},
+      picks: { num:'03 / HIGHLIGHTS', title:'精选案例', items:[
+        ['v13','家纺床品 · 单条 25 万播放'], ['v14','宠物凉感垫 · 宠物垂类'], ['v18','AIGC 宠物用品 · 全 AI 生成']]}
+    };
+    const AI = new Set(['v07','v10','v15','v16','v17','v18']);
+    const LB = document.getElementById('catLB');
+    const GRID = document.getElementById('catGrid');
+    const NUM = document.getElementById('catNum');
+    const TIT = document.getElementById('catTitle');
+    if(!LB || !GRID) return;
+
+    function openCat(key){
+      const c = CAT[key]; if(!c) return;
+      NUM.textContent = c.num; TIT.textContent = c.title;
+      GRID.innerHTML = c.items.map(function(it){
+        const v = it[0], t = it[1];
+        return '<div class="vcard" data-v="assets/videos/' + v + '.mp4" data-t="' + t + '">'
+          + (AI.has(v) ? '<span class="ai">AIGC</span>' : '')
+          + '<img src="assets/covers/' + v + '.jpg" alt="' + t + '" loading="lazy" draggable="false">'
+          + '<span class="play"><span><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span></span>'
+          + '<span class="cap">' + t + '</span></div>';
+      }).join('');
+      GRID.querySelectorAll('.vcard').forEach(function(el){
+        el.addEventListener('click', function(){
+          LB.classList.remove('on');
+          openLB(el.dataset.v, el.dataset.t, 'video');
+        });
+      });
+      LB.classList.add('on');
+      LB.querySelector('.catlb-in').scrollTop = 0;
+    }
+    document.querySelectorAll('.catcard').forEach(function(el){
+      el.addEventListener('click', function(){ openCat(el.dataset.cat); });
+    });
+    var x = document.getElementById('catX');
+    if(x) x.addEventListener('click', function(){ LB.classList.remove('on'); });
+    LB.addEventListener('click', function(e){ if(e.target === LB) LB.classList.remove('on'); });
+    document.addEventListener('keydown', function(e){
+      if(e.key === 'Escape' && LB.classList.contains('on')) LB.classList.remove('on');
+    });
+  })();
 
   function openLB(src, title, kind){
     clearTimeout(loadTimer); clearMsg();
