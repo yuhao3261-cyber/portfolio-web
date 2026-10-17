@@ -572,13 +572,65 @@ section.dense .shots{margin-top:0}
   .hero{grid-template-columns:1.4fr .6fr;gap:30px}
   .heroname{font-size:56px!important}
 }
+/* ================= FX 增强包 ================= */
+/* ① 开场加载器 */
+#boot{position:fixed;inset:0;z-index:99999;pointer-events:auto}
+#boot .bhalf{position:absolute;left:0;width:100%;height:50.2%;background:#06070d;transition:transform .95s var(--ease)}
+#boot .bhalf.t{top:0}#boot .bhalf.b{bottom:0}
+#boot .bmid{position:absolute;inset:0;display:grid;place-content:center;justify-items:center;gap:24px;
+  transition:opacity .3s ease,transform .3s ease}
+#boot .bmark{width:46px;height:46px;border-radius:13px;position:relative;
+  background:conic-gradient(from 0deg,var(--cyan),var(--violet) 45%,var(--pink) 72%,var(--cyan));
+  animation:bspin 2.6s linear infinite;box-shadow:0 0 40px rgba(0,212,255,.38)}
+#boot .bmark::after{content:'';position:absolute;inset:2px;border-radius:11px;background:#06070d}
+#boot .bmark i{position:absolute;inset:15px;border-radius:4px;z-index:2;
+  background:linear-gradient(120deg,var(--cyan),var(--pink))}
+@keyframes bspin{to{transform:rotate(360deg)}}
+#boot .btxt{font-family:var(--mono);font-size:12px;letter-spacing:.42em;color:rgba(255,255,255,.56);
+  text-transform:uppercase;text-indent:.42em}
+#boot .bbar{width:188px;height:1px;background:rgba(255,255,255,.14);overflow:hidden}
+#boot .bbar b{display:block;height:100%;width:0;
+  background:linear-gradient(90deg,var(--cyan),var(--violet),var(--pink));box-shadow:0 0 10px rgba(0,212,255,.85)}
+#boot .bnum{font-family:var(--mono);font-size:11px;letter-spacing:.22em;color:rgba(255,255,255,.42)}
+#boot.closing .bmid{opacity:0;transform:translateY(-12px)}
+#boot.closing .bhalf.t{transform:translateY(-100%)}
+#boot.closing .bhalf.b{transform:translateY(100%)}
+#boot.gone{display:none}
+@media print{#boot{display:none!important}}
+
+/* ② 音轨条纹背景（随音量起伏的竖条，致敬 khanux） */
+#barcode{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;opacity:.55;
+  mask-image:linear-gradient(to top,transparent 0%,#000 34%,#000 82%,transparent 100%);
+  -webkit-mask-image:linear-gradient(to top,transparent 0%,#000 34%,#000 82%,transparent 100%)}
+@media print{#barcode{display:none!important}}
+
+/* ③ 标题逐字入场 */
+.ch{display:inline-block;white-space:pre;transform:translateY(.62em) rotate(2.5deg);opacity:0;
+  transition:transform .95s var(--ease),opacity .72s var(--ease);
+  transition-delay:calc(var(--i,0) * 46ms)}
+.split-in .ch{transform:none;opacity:1}
+.measuring .ch{transition:none!important;transform:none!important;opacity:0!important}
+@media (prefers-reduced-motion:reduce){.ch{transform:none;opacity:1;transition:none}}
+
 </style>
 </head>
 <body>
 
+<div id="boot" aria-hidden="true">
+  <div class="bhalf t"></div>
+  <div class="bhalf b"></div>
+  <div class="bmid">
+    <div class="bmark"><i></i></div>
+    <div class="btxt">GONG YUHAO · PORTFOLIO</div>
+    <div class="bbar"><b id="bootBar"></b></div>
+    <div class="bnum"><span id="bootNum">0</span> %</div>
+  </div>
+</div>
+
 <div class="bgfx" id="bgfx">
   <div class="bgimg"></div>
   <div class="bgveil"></div>
+  <canvas id="barcode"></canvas>
   <div class="orb a" data-par="0.02"></div>
   <div class="orb b" data-par="0.03"></div>
   <div class="orb c" data-par="0.015"></div>
@@ -1395,6 +1447,158 @@ section.dense .shots{margin-top:0}
     var t = e.target.tagName;
     if(t === 'IMG' || t === 'VIDEO') e.preventDefault();
   });
+
+  /* ================= FX 增强包：开场加载 / 音轨背景 / 逐字入场 / 磁吸 ================= */
+  (function(){
+    var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var boot = document.getElementById('boot');
+    var forced = /[?&]boot=1/.test(location.search);
+    var seen = false;
+    try{ seen = !!sessionStorage.getItem('pf_boot'); }catch(e){}
+
+    /* ---- ① 开场加载器 ---- */
+    function fxReady(){ document.dispatchEvent(new CustomEvent('fx:ready')); }
+    if(boot && seen && !forced){
+      boot.classList.add('gone');
+      setTimeout(fxReady, 60);
+    }else if(boot){
+      var num = document.getElementById('bootNum'), bar = document.getElementById('bootBar');
+      var t0 = 0, DUR = 1150, closed = false;
+      function ease(p){ return 1 - Math.pow(1 - p, 3); }
+      function closeBoot(){
+        if(closed) return; closed = true;
+        boot.classList.add('closing');
+        try{ sessionStorage.setItem('pf_boot','1'); }catch(e){}
+        setTimeout(function(){ boot.classList.add('gone'); }, 1000);
+        setTimeout(fxReady, 620);
+      }
+      (function tick(){
+        if(closed) return;
+        if(!t0) t0 = performance.now();          /* 首帧后才开始计数，保证从 0% 走满 */
+        var p = Math.min(1, (performance.now() - t0) / DUR), v = ease(p);
+        num.textContent = Math.round(v * 100);
+        bar.style.width = (v * 100) + '%';
+        if(p < 1) requestAnimationFrame(tick); else setTimeout(closeBoot, 170);
+      })();
+      boot.addEventListener('click', closeBoot);
+      window.addEventListener('keydown', closeBoot, {once:true});
+      setTimeout(closeBoot, 3200);
+    }else{
+      setTimeout(fxReady, 60);
+    }
+
+    /* ---- ② 音轨条纹背景 ---- */
+    var cvs = document.getElementById('barcode');
+    if(cvs && !reduce){
+      var ctx = cvs.getContext('2d'), W = 0, H = 0, bars = [], raf = null, t = 0;
+      function build(){
+        var dpr = Math.min(2, window.devicePixelRatio || 1);
+        W = cvs.clientWidth || window.innerWidth;
+        H = cvs.clientHeight || window.innerHeight;
+        cvs.width = Math.round(W * dpr); cvs.height = Math.round(H * dpr);
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+        var gap = 15, n = Math.max(24, Math.floor(W / gap));
+        bars = [];
+        for(var i = 0; i < n; i++){
+          bars.push({
+            x: i * gap + 3 + (i % 2 ? 2 : 0),
+            w: (i % 7 === 0 ? 9 : 5),
+            b: 0.05 + Math.random() * 0.26,
+            s: 0.5 + Math.random() * 1.5,
+            p: Math.random() * 6.283,
+            c: (i % 3 === 0 ? '139,92,246' : '0,212,255')
+          });
+        }
+        t = 0;
+      }
+      function draw(){
+        ctx.clearRect(0, 0, W, H);
+        t += 0.012;
+        for(var i = 0; i < bars.length; i++){
+          var b = bars[i];
+          var hh = (b.b + 0.16 * Math.abs(Math.sin(t * b.s + b.p))) * H;
+          ctx.fillStyle = 'rgba(' + b.c + ',0.32)';
+          ctx.fillRect(b.x, H - hh, b.w, hh);
+        }
+        raf = requestAnimationFrame(draw);
+      }
+      function start(){ if(!raf) raf = requestAnimationFrame(draw); }
+      function stop(){ if(raf){ cancelAnimationFrame(raf); raf = null; } }
+      build(); start();
+      var rz;
+      window.addEventListener('resize', function(){
+        clearTimeout(rz);
+        rz = setTimeout(function(){ stop(); build(); start(); }, 220);
+      });
+      document.addEventListener('visibilitychange', function(){ document.hidden ? stop() : start(); });
+    }
+
+    /* ---- ③ 标题逐字入场 ---- */
+    function splitText(el){
+      if(!el || el.dataset.split || el.children.length) return;
+      var txt = (el.textContent || '').replace(/\s+/g, ' ').trim();
+      if(!txt || txt.length > 16) return;
+      var cs = getComputedStyle(el);
+      var clip = (cs.backgroundClip === 'text' || cs.webkitBackgroundClip === 'text');
+      el.classList.add('measuring');
+      el.innerHTML = Array.from(txt).map(function(c, i){
+        return '<span class="ch" style="--i:' + i + '">' + (c === ' ' ? '&nbsp;' : c) + '</span>';
+      }).join('');
+      el.dataset.split = '1';
+      if(clip){
+        var er = el.getBoundingClientRect();
+        var spans = el.querySelectorAll('.ch');
+        for(var i = 0; i < spans.length; i++){
+          var s = spans[i], sr = s.getBoundingClientRect();
+          s.style.backgroundImage = cs.backgroundImage;
+          s.style.backgroundSize = Math.round(er.width) + 'px ' + Math.round(er.height) + 'px';
+          s.style.backgroundPosition = Math.round(er.left - sr.left) + 'px ' + Math.round(er.top - sr.top) + 'px';
+          s.style.webkitBackgroundClip = 'text';
+          s.style.backgroundClip = 'text';
+          s.style.webkitTextFillColor = 'transparent';
+          s.style.color = 'transparent';
+        }
+      }
+      requestAnimationFrame(function(){ el.classList.remove('measuring'); });
+    }
+    function beginSplits(){
+      var io = ('IntersectionObserver' in window) ? new IntersectionObserver(function(es){
+        es.forEach(function(e){
+          if(e.isIntersecting){ e.target.classList.add('split-in'); io.unobserve(e.target); }
+        });
+      }, {threshold: 0.35}) : null;
+      var targets = document.querySelectorAll('.heroname, .heroen, .title');
+      for(var i = 0; i < targets.length; i++){
+        var el = targets[i];
+        splitText(el);
+        if(!el.dataset.split) continue;
+        if(reduce || !io) el.classList.add('split-in');
+        else if(el.getBoundingClientRect().top < window.innerHeight) io.observe(el);
+        else io.observe(el);
+      }
+    }
+    document.addEventListener('fx:ready', beginSplits, {once:true});
+
+    /* ---- ④ 磁吸 / 轻微 3D 倾斜 ---- */
+    if(!reduce && window.matchMedia('(hover:hover)').matches){
+      var mag = document.querySelectorAll('.btn, .catcard');
+      for(var k = 0; k < mag.length; k++){
+        (function(el){
+          el.addEventListener('pointermove', function(e){
+            var r = el.getBoundingClientRect();
+            var dx = (e.clientX - r.left) / r.width - 0.5;
+            var dy = (e.clientY - r.top) / r.height - 0.5;
+            var tr = 'translate(' + (dx * 9).toFixed(1) + 'px,' + (dy * 7).toFixed(1) + 'px)';
+            if(el.classList.contains('catcard')){
+              tr += ' perspective(800px) rotateX(' + (-dy * 4).toFixed(2) + 'deg) rotateY(' + (dx * 6).toFixed(2) + 'deg)';
+            }
+            el.style.transform = tr;
+          });
+          el.addEventListener('pointerleave', function(){ el.style.transform = ''; });
+        })(mag[k]);
+      }
+    }
+  })();
 
   setIndex(0);
 })();
