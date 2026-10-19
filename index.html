@@ -6,6 +6,12 @@
 <title>龚雨豪 · 短视频剪辑作品集 2026</title>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%2300d4ff'/%3E%3Cstop offset='1' stop-color='%238b5cf6'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='64' height='64' rx='14' fill='%2306070d'/%3E%3Ctext x='32' y='45' font-size='40' font-family='Microsoft YaHei,sans-serif' font-weight='700' fill='url(%23g)' text-anchor='middle'%3E%E9%9B%A8%3C/text%3E%3C/svg%3E">
 <meta name="description" content="龚雨豪 · TikTok 带货短视频拍摄剪辑作品集。2年经验，独立操盘美区带货短视频全流程，擅长 AIGC 达人出镜视频与 AI 生产工作流。">
+<meta name="theme-color" content="#06070d">
+<meta property="og:type" content="website">
+<meta property="og:title" content="龚雨豪 · 短视频剪辑作品集 2026">
+<meta property="og:description" content="TikTok 美区带货短视频拍摄剪辑｜2年经验｜AIGC 达人出镜｜单条最高播放 25 万+">
+<meta property="og:image" content="assets/me.jpg">
+<meta name="twitter:card" content="summary_large_image">
 <!--
   ============================================================
   龚雨豪 · 作品集 / 个人简历  单文件站
@@ -20,18 +26,23 @@
   ============================================================
 -->
 <style>
+/* 自托管中文字体（Noto Sans SC 可变字重，仅取本站用字，本地子集，离线可用） */
+@font-face{font-family:'NotoSC';src:url('assets/fonts/notosc-sub.woff2') format('woff2-variations'),
+  url('assets/fonts/notosc-sub.woff2') format('woff2');font-weight:200 900;font-style:normal;font-display:swap}
 :root{
   --cyan:#00d4ff;
   --violet:#8b5cf6;
   --pink:#ec4899;
   --lime:#a3e635;
   --amber:#fbbf24;
+  --irid:linear-gradient(104deg,#ffffff 0%,#dff4ff 16%,#00d4ff 40%,#7c9dff 56%,#8b5cf6 74%,#ec4899 92%,#ffb86b 100%);
+  --irid-soft:linear-gradient(100deg,rgba(0,212,255,.85),rgba(139,92,246,.75) 52%,rgba(236,72,153,.7));
   --ink:#ffffff;
   --muted:rgba(255,255,255,.64);
   --dim:rgba(255,255,255,.36);
   --line:rgba(255,255,255,.10);
   --line-cyan:rgba(0,212,255,.30);
-  --font:'Inter','HarmonyOS Sans SC','PingFang SC','Microsoft YaHei',system-ui,-apple-system,'Segoe UI',sans-serif;
+  --font:'NotoSC','HarmonyOS Sans SC','PingFang SC','Microsoft YaHei',system-ui,-apple-system,'Segoe UI',sans-serif;
   --mono:'Bahnschrift','DIN Alternate','Segoe UI Variable Display','Inter',system-ui,sans-serif;
   --ease:cubic-bezier(.22,1,.36,1);
   --r:20px;
@@ -45,9 +56,24 @@ body{font-family:var(--font);color:var(--ink);background:#06070d;-webkit-font-sm
 .bgfx{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden;
   background:linear-gradient(135deg,#06070d 0%,#0c1226 32%,#1a1740 62%,#0c1226 100%)}
 .bgimg{position:absolute;inset:0;background:url('assets/bg.jpg') center/cover no-repeat;
-  opacity:.94;filter:brightness(.62) saturate(.95) contrast(1.03)}
+  opacity:.94;filter:brightness(.62) saturate(.95) contrast(1.03);transition:opacity 1s ease}
+.bgimg.off{opacity:0}
+/* 动态背景视频（无缝循环，静音自动播放） */
+.bgvid{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:48% 40%;
+  opacity:0;transition:opacity 1.4s ease;
+  filter:brightness(.95) saturate(1.06) contrast(1.06) blur(1.6px);
+  animation:bgdrift 40s ease-in-out infinite alternate}
+@keyframes bgdrift{from{transform:scale(1.05) translate3d(-.6%,0,0)}to{transform:scale(1.11) translate3d(.8%,-.5%,0)}}
+.bgvid.on{opacity:.95}
+@media (prefers-reduced-motion:reduce){.bgvid{display:none!important}}
+@media (max-width:760px){.bgvid{object-position:50% 32%;filter:brightness(.82) saturate(1) contrast(1.05) blur(.7px)}}
 .bgveil{position:absolute;inset:0;
-  background:linear-gradient(100deg,rgba(5,7,18,.90) 0%,rgba(5,7,18,.74) 36%,rgba(5,7,18,.44) 68%,rgba(5,7,18,.66) 100%)}
+  background:linear-gradient(100deg,rgba(8,5,16,.86) 0%,rgba(9,5,17,.62) 34%,rgba(11,6,20,.38) 66%,rgba(9,5,16,.58) 100%)}
+/* 光谱辉光层：把背景的彩虹纤维收拢到品牌青/紫/粉色域 */
+.bgbloom{position:absolute;inset:0;pointer-events:none;mix-blend-mode:screen;opacity:.5;
+  background:radial-gradient(42% 50% at 68% 38%,rgba(236,72,153,.13),transparent 72%),
+             radial-gradient(38% 44% at 84% 62%,rgba(139,92,246,.12),transparent 74%),
+             radial-gradient(30% 34% at 46% 72%,rgba(0,212,255,.06),transparent 76%)}
 .orb{position:absolute;border-radius:50%;filter:blur(100px);will-change:transform}
 .orb.a{width:680px;height:680px;opacity:.17;background:radial-gradient(circle,rgba(0,212,255,.55) 0%,transparent 70%)}
 .orb.b{width:580px;height:580px;opacity:.15;background:radial-gradient(circle,rgba(139,92,246,.68) 0%,transparent 70%)}
@@ -64,6 +90,10 @@ body{font-family:var(--font);color:var(--ink);background:#06070d;-webkit-font-sm
 @keyframes float{0%{transform:translateY(0) scale(1);opacity:0}
   12%{opacity:.6}88%{opacity:.6}100%{transform:translateY(-140px) scale(.4);opacity:0}}
 .vig{position:absolute;inset:0;background:radial-gradient(ellipse at 50% 50%,transparent 40%,rgba(0,0,0,.45) 100%)}
+/* 顶部光谱细线：与背景光线呼应 */
+.spectrum-top{position:fixed;top:0;left:0;right:0;height:1px;z-index:66;pointer-events:none;
+  background:linear-gradient(90deg,transparent 2%,rgba(0,212,255,.55) 26%,rgba(139,92,246,.5) 52%,rgba(236,72,153,.45) 76%,transparent 98%);
+  mix-blend-mode:screen;opacity:.6}
 
 /* ================= 光标 ================= */
 .cur-dot,.cur-halo{position:fixed;top:0;left:0;border-radius:50%;pointer-events:none;opacity:0;transition:opacity .3s}
@@ -77,9 +107,14 @@ body{font-family:var(--font);color:var(--ink);background:#06070d;-webkit-font-sm
 .scroller::-webkit-scrollbar{display:none}
 section{position:relative;min-height:100vh;min-height:100dvh;scroll-snap-align:start;scroll-snap-stop:always;
   display:flex;flex-direction:column;justify-content:center;padding:86px 72px 66px;overflow:hidden}
+/* 内容区减光：让动态背景在四周流动，正文区始终有暗底 */
+section::before{content:'';position:absolute;inset:0;z-index:2;pointer-events:none;
+  background:radial-gradient(74% 80% at 50% 52%,rgba(5,3,12,.66) 0%,rgba(5,3,12,.52) 46%,rgba(5,3,12,.16) 72%,transparent 88%)}
 .wrap{width:100%;max-width:1250px;margin:0 auto;position:relative;z-index:3}
-.watermark{position:absolute;right:26px;top:60px;z-index:1;font-family:var(--mono);font-size:200px;font-weight:700;
-  line-height:.8;letter-spacing:-.04em;color:rgba(255,255,255,.022);pointer-events:none;user-select:none}
+.watermark{position:absolute;right:26px;top:60px;z-index:1;font-family:var(--mono);font-size:200px;font-weight:800;
+  line-height:.8;letter-spacing:-.04em;pointer-events:none;user-select:none;
+  background:var(--irid);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;
+  opacity:.10;filter:blur(.2px)}
 
 /* ================= 顶栏 ================= */
 .topbar{position:fixed;top:0;left:0;right:0;z-index:60;display:flex;align-items:center;justify-content:space-between;
@@ -128,26 +163,33 @@ section{position:relative;min-height:100vh;min-height:100dvh;scroll-snap-align:s
 .menu a:hover i{opacity:1}
 
 /* ================= 文字系统 ================= */
-.eyebrow{display:inline-flex;align-items:center;gap:13px;font-family:var(--mono);font-size:12px;letter-spacing:.28em;
-  text-transform:uppercase;color:var(--cyan);margin-bottom:18px;font-weight:600}
+.eyebrow{display:inline-flex;align-items:center;gap:13px;font-family:var(--mono);font-size:12px;letter-spacing:.30em;
+  text-transform:uppercase;color:#8fe8ff;margin-bottom:18px;font-weight:500;text-shadow:0 0 20px rgba(0,212,255,.30)}
 .eyebrow::before{content:'';height:1px;width:30px;background:linear-gradient(90deg,transparent,var(--cyan))}
 .eyebrow em{font-style:normal;color:rgba(255,255,255,.42);letter-spacing:.10em}
-.title{font-size:clamp(36px,4.8vw,68px);font-weight:800;letter-spacing:-.02em;line-height:1.06;margin-bottom:14px}
-.title .g{background:linear-gradient(100deg,var(--cyan),var(--violet) 52%,var(--pink));
-  -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
-.sub{color:var(--muted);font-size:15.5px;line-height:1.75;max-width:740px}
+.title{font-size:clamp(36px,4.8vw,68px);font-weight:900;letter-spacing:-.028em;line-height:1.04;margin-bottom:14px}
+.title .g{background:var(--irid);background-size:190% 100%;
+  -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;
+  filter:drop-shadow(0 4px 26px rgba(0,212,255,.18));animation:iridShift 16s ease-in-out infinite}
+@keyframes iridShift{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
+.sub{color:rgba(219,230,250,.66);font-size:15.5px;line-height:1.9;letter-spacing:.01em;max-width:740px;
+  text-wrap:pretty}
 .center{text-align:center}.center .sub{margin:0 auto}.center .eyebrow{justify-content:center}
-.lead{font-size:16px;line-height:1.8;color:var(--muted)}
+.lead{font-size:16px;line-height:1.9;letter-spacing:.01em;color:rgba(219,230,250,.70)}
 
 /* ================= 卡片（渐变描边） ================= */
-.card{position:relative;background:linear-gradient(160deg,rgba(255,255,255,.055),rgba(255,255,255,.018));
-  border:1px solid rgba(255,255,255,.085);border-radius:var(--r);padding:24px 26px;
-  backdrop-filter:blur(10px);transition:.35s var(--ease)}
+.card{position:relative;background:linear-gradient(160deg,rgba(12,16,32,.86),rgba(6,8,18,.76));
+  border:1px solid rgba(150,195,255,.11);border-radius:var(--r);padding:24px 26px;
+  transition:.35s var(--ease)}
+.card::before{content:'';position:absolute;left:20%;right:20%;top:-1px;height:1px;pointer-events:none;
+  background:linear-gradient(90deg,transparent,rgba(0,212,255,.55),rgba(139,92,246,.42),transparent);
+  opacity:.5;transition:.4s var(--ease)}
+.card:hover::before{opacity:1;left:6%;right:6%}
 .card::after{content:'';position:absolute;inset:-1px;border-radius:inherit;padding:1px;opacity:0;transition:.4s var(--ease);
   background:linear-gradient(140deg,rgba(0,212,255,.75),rgba(139,92,246,.35) 45%,transparent 70%);
   -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);
   -webkit-mask-composite:xor;mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);mask-composite:exclude;pointer-events:none}
-.card:hover{transform:translateY(-4px);background:linear-gradient(160deg,rgba(255,255,255,.075),rgba(255,255,255,.025));
+.card:hover{transform:translateY(-4px);background:linear-gradient(160deg,rgba(20,26,48,.9),rgba(10,13,26,.8));
   box-shadow:0 18px 50px rgba(0,0,0,.35),0 0 40px rgba(0,212,255,.08)}
 .card:hover::after{opacity:1}
 .card h3{font-size:16.5px;font-weight:700;margin-bottom:9px;letter-spacing:.01em}
@@ -155,20 +197,33 @@ section{position:relative;min-height:100vh;min-height:100dvh;scroll-snap-align:s
 
 /* ================= 数据卡 ================= */
 .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:15px;margin-top:34px}
-.statcard{position:relative;background:linear-gradient(160deg,rgba(255,255,255,.05),rgba(255,255,255,.015));
+.statcard{position:relative;background:linear-gradient(160deg,rgba(14,18,38,.82),rgba(7,9,20,.72));
   border:1px solid rgba(255,255,255,.085);border-radius:17px;padding:20px 18px;text-align:center;
-  backdrop-filter:blur(10px);transition:.32s var(--ease);overflow:hidden}
+  transition:.32s var(--ease);overflow:hidden}
 .statcard::before{content:'';position:absolute;top:0;left:20%;right:20%;height:1px;
   background:linear-gradient(90deg,transparent,rgba(0,212,255,.55),transparent);opacity:0;transition:.32s}
 .statcard:hover{transform:translateY(-4px);border-color:rgba(0,212,255,.28);box-shadow:0 14px 40px rgba(0,0,0,.3)}
 .statcard:hover::before{opacity:1}
-.statnum{font-family:var(--mono);font-size:clamp(24px,2.5vw,36px);font-weight:700;letter-spacing:-.01em;line-height:1.08}
+.statnum{font-family:var(--mono);font-size:clamp(24px,2.5vw,36px);font-weight:800;letter-spacing:-.02em;line-height:1.08;
+  font-variant-numeric:tabular-nums}
 .statnum.c1{background:linear-gradient(120deg,#8feaff,var(--cyan));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
 .statnum.c2{background:linear-gradient(120deg,#c9b8ff,var(--violet));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
 .statnum.c3{background:linear-gradient(120deg,#fba9d6,var(--pink));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
 .statnum.c4{background:linear-gradient(120deg,#dcf9a4,var(--lime));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
 .statnum.sm{font-size:clamp(19px,1.9vw,26px)}
 .statlabel{font-size:12px;color:var(--dim);margin-top:7px;letter-spacing:.05em}
+/* 小字可读性（12-13px 在暗底上提亮一档） */
+.statlabel{color:rgba(255,255,255,.54);letter-spacing:.06em}
+.card p,.scol p,.adv p{color:rgba(224,234,250,.72)}
+.tl li{color:rgba(224,234,250,.70)}
+.tl-time{color:rgba(255,255,255,.46)}
+/* 键盘可达性：可见焦点环（自定义光标下默认 outline 被清掉过） */
+:focus-visible{outline:2px solid rgba(0,212,255,.78);outline-offset:3px;border-radius:8px}
+/* 尊重减弱动态效果：关掉标题光谱流动 */
+@media (prefers-reduced-motion:reduce){
+  .heroname,.title .g,.bgvid{animation:none!important}
+  .bgvid{display:none!important}
+}
 
 /* ================= pill ================= */
 .pills{display:flex;flex-wrap:wrap;gap:9px}
@@ -193,17 +248,24 @@ section{position:relative;min-height:100vh;min-height:100dvh;scroll-snap-align:s
 
 /* ================= 封面 ================= */
 .hero{display:grid;grid-template-columns:1.28fr .82fr;gap:56px;align-items:center}
-.heroname{font-size:clamp(50px,7vw,92px);font-weight:800;letter-spacing:-.035em;line-height:1;margin-bottom:8px;
-  background:linear-gradient(110deg,#fff 0%,#c8ecff 20%,var(--cyan) 40%,var(--violet) 64%,var(--pink) 88%);
-  -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
-.heroen{font-family:var(--mono);font-size:clamp(19px,2.2vw,28px);font-weight:400;letter-spacing:.32em;
-  color:rgba(255,255,255,.40);margin-bottom:22px}
-.heroint{color:var(--muted);font-size:15.5px;line-height:1.85;max-width:570px;margin:20px 0 4px}
+.heroname{font-size:clamp(50px,7vw,92px);font-weight:900;letter-spacing:-.05em;line-height:1;margin-bottom:8px;
+  background:var(--irid);background-size:200% 100%;
+  -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;
+  filter:drop-shadow(0 8px 40px rgba(0,212,255,.22)) drop-shadow(0 2px 12px rgba(139,92,246,.18));
+  animation:iridShift 18s ease-in-out infinite}
+.heroen{font-family:var(--mono);font-size:clamp(19px,2.2vw,28px);font-weight:300;letter-spacing:.30em;
+  color:rgba(200,225,255,.42);margin-bottom:22px;text-shadow:0 0 26px rgba(0,212,255,.18)}
+.heroint{color:rgba(219,230,250,.70);font-size:15.5px;line-height:1.92;letter-spacing:.01em;max-width:570px;margin:20px 0 4px;
+  text-wrap:pretty}
 .photoframe{position:relative;border-radius:24px;overflow:hidden;aspect-ratio:4/5;width:100%;max-width:390px;margin-left:auto;
   border:1px solid rgba(0,212,255,.30);
   background:linear-gradient(160deg,rgba(0,212,255,.13),rgba(139,92,246,.15),rgba(236,72,153,.10));
   box-shadow:0 34px 90px rgba(0,0,0,.55),0 0 70px rgba(0,212,255,.24),0 0 130px rgba(139,92,246,.14)}
-.photoframe img{width:100%;height:100%;object-fit:cover;display:block}
+.photoframe img{width:100%;height:100%;object-fit:cover;display:block;
+  filter:saturate(.9) contrast(1.05) brightness(.97)}
+.photoframe::after{content:'';position:absolute;inset:0;z-index:3;pointer-events:none;
+  background:linear-gradient(150deg,rgba(0,212,255,.10),transparent 34%,transparent 62%,rgba(139,92,246,.16)),
+             linear-gradient(0deg,rgba(6,8,20,.42),transparent 46%)}
 .photo-ph{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:11px;
   color:rgba(255,255,255,.44);font-size:12.5px;letter-spacing:.08em;text-align:center;padding:24px}
 .photo-ph svg{width:42px;height:42px;opacity:.5}
@@ -551,18 +613,24 @@ section.dense .shots{margin-top:0}
   .bgfx,.topbar,.navarrow,.pagenum,.progress,.menu,.cur-dot,.cur-halo,.dots,.btns,.watermark,
   .spark,.orb,.grid,.vig,.tl-more{display:none!important}
   .scroller{height:auto!important;overflow:visible!important;scroll-snap-type:none!important}
-  section{min-height:auto!important;padding:20px 0 26px!important;page-break-after:always;break-after:page;
+  section{min-height:auto!important;padding:22px 16px 26px!important;page-break-after:always;break-after:page;
     page-break-inside:avoid;overflow:visible}
   section:last-child{page-break-after:auto}
   .wrap{max-width:100%}
   .rv{opacity:1!important;transform:none!important}
+  .ch{opacity:1!important;transform:none!important;transition:none!important}
   body,.title,.heroname,.card h3,.tl-head h3,.edu .school,.cc b,.adv h3{color:#0b0b12!important}
   .title .g,.heroname,.statnum,.heroen,.eyebrow,.tl-head h3 em,
-  .cc small,.tl-time,.edu .meta,.adv .no{background:none!important;-webkit-text-fill-color:#0b0b12!important;color:#0b0b12!important}
-  .sub,.card p,.tl li,.edu li,.lead{color:#333!important}
+  .cc small,.tl-time,.edu .meta,.adv .no{background:none!important;-webkit-text-fill-color:#0b0b12!important;
+    color:#0b0b12!important;filter:none!important;animation:none!important;
+    -webkit-background-clip:border-box!important;background-clip:border-box!important}
+  .sub,.card p,.tl li,.edu li,.lead,.heroint,.statlabel,.scol p,.adv p{color:#333!important}
+  .photoframe{box-shadow:none!important;border-color:#dcdcdc!important}
   .card,.statcard,.shot,.pill{border-color:#dcdcdc!important;background:#fafafa!important;box-shadow:none!important}
   .pill{color:#333!important}
   .statcard::before,.card::after{display:none!important}
+  section::before,.bgbloom,.spectrum-top,.card::before,.photoframe::after{display:none!important}
+  .card,.statcard{background:#fafafa!important;backdrop-filter:none!important}
   .timeline::before{background:#999!important}
   .tl::before{border-color:#666!important;box-shadow:none!important;background:#fff!important}
   .bar{background:#eee!important}
@@ -586,6 +654,19 @@ section.dense .shots{margin-top:0}
 #boot .bmark i{position:absolute;inset:15px;border-radius:4px;z-index:2;
   background:linear-gradient(120deg,var(--cyan),var(--pink))}
 @keyframes bspin{to{transform:rotate(360deg)}}
+/* 启动动效：取自动态 logo 素材第 3 个画面（光环→花瓣绽放） */
+#boot .blogo{position:relative;width:clamp(180px,24vw,300px);aspect-ratio:1;display:grid;place-items:center}
+#boot .blogo::after{content:'';position:absolute;inset:6%;border-radius:50%;z-index:0;
+  background:radial-gradient(circle,rgba(0,212,255,.16),rgba(139,92,246,.07) 46%,transparent 72%);
+  filter:blur(16px);opacity:0;transition:opacity .6s ease}
+#boot .blogo.play::after{opacity:1}
+#boot .bload{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;z-index:2;
+  mix-blend-mode:screen;opacity:0;transition:opacity .5s ease;
+  -webkit-mask-image:linear-gradient(to bottom,#000 68%,rgba(0,0,0,.55) 84%,transparent 97%);
+  mask-image:linear-gradient(to bottom,#000 68%,rgba(0,0,0,.55) 84%,transparent 97%)}
+#boot .bload.on{opacity:1}
+#boot .bmark{transition:opacity .45s ease,transform .45s ease}
+#boot .blogo.play .bmark{opacity:0;transform:scale(.72)}
 #boot .btxt{font-family:var(--mono);font-size:12px;letter-spacing:.42em;color:rgba(255,255,255,.56);
   text-transform:uppercase;text-indent:.42em}
 #boot .bbar{width:188px;height:1px;background:rgba(255,255,255,.14);overflow:hidden}
@@ -620,13 +701,14 @@ section.dense .shots{margin-top:0}
   background:repeating-linear-gradient(to bottom,rgba(255,255,255,.09) 0 1px,transparent 1px 3px)}
 @media print{.grain,.scan{display:none!important}}
 
-/* ⑤ 玻璃卡聚光（跟随鼠标；未悬停时 -999px 让高光出画，避免整卡泛蓝） */
-.card{background-image:radial-gradient(260px circle at var(--mx,-999px) var(--my,-999px),rgba(0,212,255,.20),transparent 62%),
-  linear-gradient(160deg,rgba(255,255,255,.055),rgba(255,255,255,.018))}
-.card:hover{background-image:radial-gradient(260px circle at var(--mx,-999px) var(--my,-999px),rgba(0,212,255,.26),transparent 62%),
-  linear-gradient(160deg,rgba(255,255,255,.075),rgba(255,255,255,.025))}
-.statcard{background-image:radial-gradient(240px circle at var(--mx,-999px) var(--my,-999px),rgba(139,92,246,.24),transparent 64%),
-  linear-gradient(160deg,rgba(255,255,255,.05),rgba(255,255,255,.015))}
+/* ⑤ 玻璃卡聚光（跟随鼠标；未悬停时 -999px 让高光出画，避免整卡泛蓝）
+   底衬保持高不透明，动态背景才不会把卡片糊成奶白 */
+.card{background-image:radial-gradient(260px circle at var(--mx,-999px) var(--my,-999px),rgba(0,212,255,.18),transparent 62%),
+  linear-gradient(160deg,rgba(12,16,32,.88),rgba(6,8,18,.78))}
+.card:hover{background-image:radial-gradient(260px circle at var(--mx,-999px) var(--my,-999px),rgba(0,212,255,.24),transparent 62%),
+  linear-gradient(160deg,rgba(20,26,48,.92),rgba(10,13,26,.82))}
+.statcard{background-image:radial-gradient(240px circle at var(--mx,-999px) var(--my,-999px),rgba(139,92,246,.22),transparent 64%),
+  linear-gradient(160deg,rgba(14,18,38,.84),rgba(7,9,20,.74))}
 
 /* ⑥ 章节水印入场 */
 .watermark{opacity:0;transform:translate3d(46px,-12px,0) scale(.96);
@@ -664,7 +746,13 @@ section.wm-on .watermark{opacity:1;transform:none}
   <div class="bhalf t"></div>
   <div class="bhalf b"></div>
   <div class="bmid">
-    <div class="bmark"><i></i></div>
+    <div class="blogo">
+      <video class="bload" id="bload" muted playsinline preload="none" aria-hidden="true"
+             poster="assets/launch_poster.jpg">
+        <source src="assets/launch.mp4" type="video/mp4">
+      </video>
+      <div class="bmark" id="bmark"><i></i></div>
+    </div>
     <div class="btxt">GONG YUHAO · PORTFOLIO</div>
     <div class="bbar"><b id="bootBar"></b></div>
     <div class="bnum"><span id="bootNum">0</span> %</div>
@@ -672,8 +760,13 @@ section.wm-on .watermark{opacity:1;transform:none}
 </div>
 
 <div class="bgfx" id="bgfx">
-  <div class="bgimg"></div>
+  <div class="bgimg" id="bgimg"></div>
+  <video class="bgvid" id="bgvid" autoplay muted loop playsinline preload="auto"
+         poster="assets/bg_poster.jpg" disablepictureinpicture aria-hidden="true" tabindex="-1">
+    <source src="assets/bg_loop.mp4" type="video/mp4">
+  </video>
   <div class="bgveil"></div>
+  <div class="bgbloom"></div>
   <canvas id="barcode"></canvas>
   <div class="orb a" data-par="0.02"></div>
   <div class="orb b" data-par="0.03"></div>
@@ -683,6 +776,7 @@ section.wm-on .watermark{opacity:1;transform:none}
 </div>
 <div class="cur-halo" id="halo"></div>
 <div class="cur-dot" id="dot"></div>
+<div class="spectrum-top" aria-hidden="true"></div>
 <div class="grain" aria-hidden="true"></div>
 <div class="scan" aria-hidden="true"></div>
 
@@ -1294,6 +1388,23 @@ section.wm-on .watermark{opacity:1;transform:none}
     bg.appendChild(s);
   }
 
+  /* ---------- 动态背景视频（抖音素材·无缝循环） ---------- */
+  (function(){
+    var v=document.getElementById('bgvid'), im=document.getElementById('bgimg');
+    if(!v) return;
+    var reduce=window.matchMedia&&window.matchMedia('(prefers-reduced-motion:reduce)').matches;
+    if(reduce||!window.HTMLVideoElement){ v.remove&&v.remove(); return; }
+    function on(){ v.classList.add('on'); im&&im.classList.add('off'); }
+    v.addEventListener('loadeddata',function(){ var p=v.play(); if(p&&p.catch) p.catch(function(){}); on(); },{once:true});
+    v.addEventListener('playing',on,{once:true});
+    v.addEventListener('error',function(){ im&&im.classList.remove('off'); },{once:true});
+    // 页面重新可见时续播（部分浏览器后台会暂停）
+    document.addEventListener('visibilitychange',function(){
+      if(!document.hidden){ var p=v.play(); if(p&&p.catch) p.catch(function(){}); }
+    });
+    var p=v.play(); if(p&&p.catch) p.catch(function(){});
+  })();
+
   /* ---------- 照片 ---------- */
   const img=document.getElementById('photoImg'), ph=document.getElementById('photoPh');
   img.addEventListener('load',()=>{ img.style.display='block'; ph.style.display='none'; });
@@ -1516,6 +1627,23 @@ section.wm-on .watermark{opacity:1;transform:none}
     }else if(boot){
       var num = document.getElementById('bootNum'), bar = document.getElementById('bootBar');
       var DUR = 1150, closed = false;
+      /* 启动动效：动态 logo 第 3 个画面（光环 → 花瓣绽放），时长决定加载页节奏 */
+      var bload = document.getElementById('bload'), blogo = document.querySelector('#boot .blogo');
+      if(bload && !reduce){
+        blogo.classList.add('play');
+        bload.preload = 'auto';
+        try{ bload.load(); }catch(e){}
+        bload.addEventListener('loadedmetadata', function(){
+          if(bload.duration && isFinite(bload.duration)){
+            DUR = Math.max(1150, Math.min(2600, bload.duration * 1000));
+          }
+        });
+        bload.addEventListener('playing', function(){ bload.classList.add('on'); }, {once:true});
+        var bp = bload.play();
+        if(bp && bp.catch) bp.catch(function(){});
+      }else if(blogo){
+        blogo.classList.remove('play');
+      }
       function ease(p){ return 1 - Math.pow(1 - p, 3); }
       function closeBoot(){
         if(closed) return; closed = true;
