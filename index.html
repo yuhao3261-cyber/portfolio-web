@@ -9,7 +9,7 @@
 <meta name="theme-color" content="#06070d">
 <meta property="og:type" content="website">
 <meta property="og:title" content="龚雨豪 · 短视频剪辑作品集 2026">
-<meta property="og:description" content="TikTok 美区带货短视频拍摄剪辑｜2年经验｜AIGC 达人出镜｜单条最高播放 25 万+">
+<meta property="og:description" content="TikTok 美区带货短视频拍摄剪辑｜2年经验｜AIGC 达人出镜｜单条最高播放 57.9 万">
 <meta property="og:image" content="assets/me.jpg">
 <meta name="twitter:card" content="summary_large_image">
 <!--
@@ -486,7 +486,7 @@ video::-internal-media-controls-download-button{display:none}
 @media (max-width:900px){.vgrid{grid-template-columns:repeat(3,1fr)}.lb{padding:56px 16px}}
 @media print{.lb{display:none!important}.vgrid{grid-template-columns:repeat(4,1fr)}}
 /* 屏幕不够高时（1366×768 笔记本实测视口只有 660~700）
-   18 支作品：>=961px 高 → 6 列 × 3 行；<=960px 高 → 降为 9 列 × 2 行，整屏可见不被裁切。 */
+   30 支作品：>=961px 高 → 6 列 × 5 行（单类最多 15）；<=960px 高 → 降为 9 列 × 2 行，整屏可见不被裁切。 */
 @media (max-height:960px) and (min-width:901px){
   .vgrid{grid-template-columns:repeat(9,1fr);gap:8px}
 }
@@ -738,6 +738,164 @@ section.wm-on .watermark{opacity:1;transform:none}
 @media (prefers-reduced-motion:reduce){.mq-track{animation:none}}
 @media print{.mqbar{display:none!important}}
 
+
+/* ================= 2026-10 高级化皮肤 ================= */
+/* 墨黑 + 冷银 + 单一强调色（#8fd3e8）；杀掉彩虹渐变与霓虹光晕 */
+:root{
+  --cyan:#8fd3e8; --violet:#8fd3e8; --pink:#8fd3e8; --lime:#dbe4ea; --amber:#dbe4ea;
+  --irid:linear-gradient(100deg,#ffffff 0%,#e8eff3 46%,#8fd3e8 100%);
+  --irid-soft:linear-gradient(100deg,rgba(232,239,243,.9),rgba(143,211,232,.55));
+  --ink:#f5f7f8; --muted:rgba(245,247,248,.56); --dim:rgba(245,247,248,.30);
+  --line:rgba(255,255,255,.085); --line-cyan:rgba(143,211,232,.26);
+}
+/* 背景压暗，去掉彩噪 */
+.bgimg{opacity:.5!important;filter:brightness(.40) saturate(.70) contrast(1.02)!important}
+.bgfx::after{content:'';position:absolute;inset:0;pointer-events:none;z-index:1;
+  background:radial-gradient(125% 95% at 50% 32%,rgba(4,5,9,0) 0%,rgba(4,5,9,.60) 62%,rgba(4,5,9,.92) 100%)}
+/* 页角大数字：极细描边，退到背景 */
+.watermark{background:none!important;-webkit-text-fill-color:transparent!important;
+  -webkit-text-stroke:1px rgba(255,255,255,.15)!important;font-weight:200!important;
+  font-size:186px!important;opacity:.85!important;letter-spacing:-.02em!important}
+/* 眉标 / 标题 / 正文 */
+.eyebrow{color:rgba(255,255,255,.40)!important;font-size:11px!important;letter-spacing:.34em!important}
+.eyebrow::before{background:linear-gradient(90deg,transparent,rgba(255,255,255,.40))!important}
+.eyebrow em{color:rgba(255,255,255,.28)!important}
+.title{letter-spacing:-.012em!important;font-weight:700!important;line-height:1.07!important}
+.title .g{background-image:var(--irid)!important;background-size:200% 100%!important;background-clip:text!important;-webkit-background-clip:text!important;-webkit-text-fill-color:transparent!important;color:transparent!important}
+.sub{color:rgba(240,244,246,.58)!important;font-size:15px!important;line-height:1.95!important}
+/* 卡片：发丝边、无光晕 */
+.card,.statcard,.catcard,.vcard{
+  border-color:var(--line)!important;
+  background:linear-gradient(160deg,rgba(255,255,255,.048),rgba(255,255,255,.014))!important;
+  box-shadow:none!important;
+  backdrop-filter:blur(6px)}
+.card::before,.statcard::before,.card::after{display:none!important}
+.card:hover,.statcard:hover,.catcard:hover{
+  transform:translateY(-3px)!important;border-color:var(--line-cyan)!important;
+  box-shadow:0 18px 48px rgba(0,0,0,.5)!important}
+.card h3{font-weight:600!important;letter-spacing:.005em!important}
+/* 数字：同一色、同一字重 */
+.statnum,.statnum.c1,.statnum.c2,.statnum.c3,.statnum.c4{
+  background:none!important;background-clip:border-box!important;
+  -webkit-text-fill-color:var(--ink)!important;color:var(--ink)!important;
+  font-weight:600!important;letter-spacing:-.018em!important}
+.statlabel{color:rgba(245,247,248,.42)!important;letter-spacing:.13em!important;font-size:11px!important}
+/* 标签统一 */
+.pill,.pill.v,.pill.p,.pill.l{
+  background:rgba(255,255,255,.028)!important;border-color:var(--line)!important;
+  color:rgba(245,247,248,.70)!important;font-size:12px!important;padding:6px 14px!important}
+.pill:hover,.pill.v:hover,.pill.p:hover,.pill.l:hover{
+  background:rgba(255,255,255,.065)!important;color:#fff!important;border-color:var(--line-cyan)!important}
+.pill i,.pill.v i,.pill.p i,.pill.l i{background:rgba(245,247,248,.45)!important;width:4px!important;height:4px!important}
+/* 按钮：主按钮改亮底黑字，副按钮发丝边 */
+.btn.primary{background:#f2f5f7!important;color:#08090c!important;box-shadow:none!important;font-weight:600!important}
+.btn.primary:hover{transform:translateY(-2px)!important;box-shadow:0 14px 34px rgba(255,255,255,.10)!important}
+.btn.ghost{border-color:rgba(255,255,255,.16)!important;color:rgba(245,247,248,.86)!important;background:transparent!important}
+.btn.ghost:hover{background:rgba(255,255,255,.06)!important;border-color:rgba(255,255,255,.30)!important}
+/* 作品分类卡 */
+.cnum{color:rgba(245,247,248,.44)!important;letter-spacing:.18em!important}
+.cimg img{filter:saturate(.80) brightness(.90)!important}
+.catcard:hover .cimg img{transform:scale(1.04)!important}
+.cimg::after{background:linear-gradient(180deg,rgba(4,5,9,0) 42%,rgba(4,5,9,.74) 100%)!important}
+.cimg .cn{color:rgba(255,255,255,.70)!important;letter-spacing:.16em!important;border-color:rgba(255,255,255,.16)!important}
+.cgo{color:rgba(255,255,255,.58)!important;letter-spacing:.10em!important}
+/* 技能进度条 */
+.bar{background:rgba(255,255,255,.07)!important}
+.bar i,.bar i.f1,.bar i.f2,.bar i.f3,.bar i.f4{
+  background:linear-gradient(90deg,rgba(245,247,248,.72),rgba(143,211,232,.92))!important;box-shadow:none!important}
+.skill .row b{color:rgba(255,255,255,.66)!important;font-weight:500!important}
+/* 流程点 / 时间线 */
+.dot{background:rgba(255,255,255,.05)!important;border-color:var(--line)!important;color:rgba(255,255,255,.70)!important}
+/* 技能图标：统一为单色，去掉六种彩色底 */
+.scol .si,.scol:nth-child(2) .si,.scol:nth-child(3) .si,.scol:nth-child(4) .si,
+.scol:nth-child(5) .si,.scol:nth-child(6) .si{
+  border-color:rgba(255,255,255,.10)!important;background:rgba(255,255,255,.045)!important;
+  color:rgba(245,247,248,.82)!important}
+.scol .si svg{stroke:currentColor!important}
+/* 顶栏压暗，避免滚动时文字与内容叠在一起 */
+.topbar{background:linear-gradient(180deg,rgba(4,5,9,.92) 0%,rgba(4,5,9,.60) 62%,rgba(4,5,9,0) 100%);
+  backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px)}
+/* 视频卡 */
+.vcard .ai{background:rgba(255,255,255,.10)!important;border-color:rgba(255,255,255,.16)!important;
+  color:rgba(255,255,255,.88)!important;letter-spacing:.12em!important}
+.vcard:hover{transform:translateY(-3px)!important;box-shadow:0 16px 40px rgba(0,0,0,.5)!important}
+
+
+/* ================= v3 冷峻高级版：去动漫底图、去玻璃卡片 ================= */
+/* 1. 背景：动漫图/视频全关，改近黑 + 双径向冷光 + 极细网格 */
+.bgimg,.bgvid{display:none!important}
+.bgfx{background:
+  radial-gradient(120% 72% at 18% -12%, rgba(38,68,96,.50) 0%, rgba(5,6,10,0) 62%),
+  radial-gradient(95% 65% at 92% -6%, rgba(20,34,50,.42) 0%, rgba(5,6,10,0) 58%),
+  radial-gradient(140% 120% at 50% 120%, rgba(12,18,28,.9) 0%, rgba(5,6,10,0) 60%),
+  #05060a!important}
+.bgfx::before{content:'';position:absolute;inset:0;pointer-events:none;z-index:0;
+  background-image:linear-gradient(rgba(255,255,255,.030) 1px,transparent 1px),
+                   linear-gradient(90deg,rgba(255,255,255,.030) 1px,transparent 1px);
+  background-size:72px 72px;
+  -webkit-mask-image:radial-gradient(75% 65% at 50% 38%,#000 0%,transparent 88%);
+  mask-image:radial-gradient(75% 65% at 50% 38%,#000 0%,transparent 88%)}
+.bgfx::after{background:radial-gradient(130% 100% at 50% 30%,rgba(3,4,7,0) 40%,rgba(3,4,7,.75) 100%)!important}
+/* 2. 角落数字：几乎只剩一道光边 */
+.watermark{opacity:.55!important;-webkit-text-stroke:1px rgba(255,255,255,.10)!important;font-size:170px!important}
+/* 3. 标题：纯白 + 关键词单色，不使用渐变字 */
+.title{font-size:clamp(38px,5.1vw,74px)!important;font-weight:600!important;
+  letter-spacing:-.022em!important;color:#fff!important;line-height:1.04!important}
+.title .g{background:none!important;background-image:none!important;
+  -webkit-text-fill-color:#9fd6e8!important;color:#9fd6e8!important}
+.title .g{-webkit-text-stroke:0!important}
+/* 4. 卡片：直角 + 发丝边 + 几乎透明，去玻璃模糊 */
+.card,.statcard,.catcard,.vcard{border-radius:3px!important;
+  background:rgba(255,255,255,.016)!important;
+  border:1px solid rgba(255,255,255,.055)!important;
+  backdrop-filter:none!important;-webkit-backdrop-filter:none!important}
+.card:hover,.statcard:hover,.catcard:hover{
+  background:rgba(255,255,255,.032)!important;border-color:rgba(255,255,255,.16)!important;
+  transform:translateY(-2px)!important;box-shadow:0 20px 50px rgba(0,0,0,.55)!important}
+/* 5. 数据卡：超大细字重数字 + 均匀间距 */
+.statnum,.statnum.c1,.statnum.c2,.statnum.c3,.statnum.c4{
+  font-size:clamp(30px,3.1vw,46px)!important;font-weight:500!important;letter-spacing:-.035em!important}
+.statnum.sm{font-size:clamp(24px,2.3vw,34px)!important}
+.statlabel{font-size:10.5px!important;letter-spacing:.16em!important;
+  text-transform:uppercase;color:rgba(255,255,255,.40)!important;margin-top:10px!important}
+.statcard{padding:22px 20px!important}
+/* 6. 眉标：更长的引导线，更小的字 */
+.eyebrow{font-size:10px!important;letter-spacing:.42em!important;color:rgba(255,255,255,.34)!important}
+.eyebrow::before{width:46px!important}
+/* 7. 正文与标签 */
+.sub{font-size:14.5px!important;line-height:2!important;color:rgba(238,243,246,.56)!important}
+.pill,.pill.v,.pill.p,.pill.l{border-radius:2px!important;font-size:11.5px!important;
+  letter-spacing:.06em!important;padding:6px 12px!important;background:transparent!important}
+.btn{border-radius:2px!important;letter-spacing:.06em!important}
+.btn.primary{background:#eef3f6!important;color:#07080b!important}
+/* 8. 代表成果四宫格 */
+.shot4{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.shot4 .dc{position:relative;border-radius:3px;overflow:hidden;cursor:pointer;
+  border:1px solid rgba(255,255,255,.055);background:rgba(255,255,255,.016);
+  height:clamp(150px,26vh,250px);display:flex;align-items:center;justify-content:center}
+.shot4 .dc img{width:100%;height:100%;object-fit:cover;object-position:top center;
+  transition:.5s cubic-bezier(.22,1,.36,1);filter:saturate(.9)}
+.shot4 .dc:hover{border-color:rgba(255,255,255,.18)}
+.shot4 .dc:hover img{transform:scale(1.03)}
+/* 9. 分类卡图片：降饱和，hover 才亮 */
+.cimg img{filter:saturate(.72) brightness(.86)!important;transition:.6s cubic-bezier(.22,1,.36,1)!important}
+.catcard:hover .cimg img{filter:saturate(1) brightness(.98)!important}
+/* 10. 技能条：细线感 */
+.bar{height:2px!important;border-radius:0!important;background:rgba(255,255,255,.08)!important}
+.bar i,.bar i.f1,.bar i.f2,.bar i.f3,.bar i.f4{background:#cfe6ee!important;border-radius:0!important}
+@media (max-width:760px){
+  .shot4{grid-template-columns:repeat(2,1fr)}
+  .title{font-size:clamp(30px,8vw,44px)!important}
+}
+
+
+/* 11. 去掉角落幽灵数字 + 弱化照片角标（更干净） */
+.watermark{display:none!important}
+.photoframe .corner{border-color:rgba(255,255,255,.34)!important;opacity:1!important;width:16px!important;height:16px!important}
+/* 12. 代表成果截图：完整显示，不裁数字 */
+.shot3 .dc{background:#080a0e!important}
+.shot3 .dc img{object-fit:contain!important;object-position:top center!important;filter:saturate(.96)!important}
+
 </style>
 </head>
 <body>
@@ -816,11 +974,11 @@ section.wm-on .watermark{opacity:1;transform:none}
       <h1 class="heroname rv d1" data-edit="name-cn">龚雨豪</h1>
       <div class="heroen rv d2">GONG YUHAO</div>
       <div class="pills rv d2">
-        <span class="pill" data-edit="role"><i></i>TikTok 拍摄剪辑 · 2年经验 · 深圳</span>
+        <span class="pill" data-edit="role"><i></i>TikTok 内容运营 · 拍摄剪辑 · 2 年 · 深圳</span>
       </div>
       <p class="heroint rv d3" data-edit="intro">
-        独立操盘 TikTok 美区带货短视频全流程，覆盖旅行用品、家居、五金、饰品、3C 数码等类目；
-        日均产出 6–10 条，用 GPT / 即梦 / AI Agent 搭建 AIGC 视频生产工作流，单条最高播放 25 万+。
+        独立操盘 TikTok 美区带货短视频全流程，覆盖宠物、汽车工具、小家电、3C 数码、家居收纳、珠宝首饰等类目；
+        稳定日产 10–12 条，自建 Agent TikTok 工作流串起脚本、分镜到成片，单条最高播放 57.9 万。
       </p>
       <div class="pills rv d3" style="margin-top:16px">
         <span class="pill"><i></i>TikTok 带货短视频</span>
@@ -833,10 +991,10 @@ section.wm-on .watermark{opacity:1;transform:none}
         <a class="btn ghost" id="goResume">个人简历<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
       </div>
       <div class="stats rv d5">
-        <div class="statcard"><div class="statnum c1">250.9K</div><div class="statlabel">单条最高播放</div></div>
+        <div class="statcard"><div class="statnum c1">57.9 万</div><div class="statlabel">单条最高播放</div></div>
         <div class="statcard"><div class="statnum c2">$5.1K</div><div class="statlabel">单月最高成交</div></div>
         <div class="statcard"><div class="statnum c3">221</div><div class="statlabel">单月成交件数</div></div>
-        <div class="statcard"><div class="statnum c4">18 支</div><div class="statlabel">在线作品</div></div>
+        <div class="statcard"><div class="statnum c4">30 支</div><div class="statlabel">在线作品</div></div>
       </div>
     </div>
     <div class="photoframe rv d3">
@@ -859,16 +1017,16 @@ section.wm-on .watermark{opacity:1;transform:none}
     <h2 class="title rv d1">关于<span class="g">我</span></h2>
     <p class="sub rv d2">2 年短视频实战经验，从工地影像记录到 TikTok 电商带货，一路把镜头、剪辑台和 AI 工具都练成了手上的活。</p>
     <div class="advgrid">
-      <div class="card adv rv d2"><span class="no">01</span><h3>全流程独立操盘</h3><p>独立完成 TikTok 美区带货短视频全流程，覆盖旅行用品、家居、五金、饰品、3C 数码等类目，日均产出 6–10 条。</p></div>
-      <div class="card adv rv d3"><span class="no">02</span><h3>爆款成果可验证</h3><p>单条最高播放 25 万+（其中单条 15 天自然播放 20 万），单月带动成交 GMV $5.1K，后台数据可查。</p></div>
+      <div class="card adv rv d2"><span class="no">01</span><h3>全流程独立操盘</h3><p>独立完成 TikTok 美区带货短视频全流程，覆盖宠物、汽车工具、小家电、3C 数码、家居收纳、珠宝首饰等类目，稳定日产 10–12 条。</p></div>
+      <div class="card adv rv d3"><span class="no">02</span><h3>爆款成果可验证</h3><p>单条最高播放 57.9 万（其中单条 15 天自然播放 20 万），7 月单月带动成交 GMV $5.1K、221 件，后台截图可查。</p></div>
       <div class="card adv rv d3"><span class="no">03</span><h3>剪辑 + AI 双熟练</h3><p>精通剪映、CapCut，擅长卡点剪辑、花字包装与音效配合，持续优化完播率与观感。</p></div>
       <div class="card adv rv d4"><span class="no">04</span><h3>拍摄剪辑全流程</h3><p>熟练单反相机与手机专业拍摄，可独立完成脚本、拍摄、后期全流程工作。</p></div>
       <div class="card adv rv d5" style="display:flex;flex-direction:column;justify-content:center;gap:12px">
-        <h3 style="margin-bottom:0">AI 视频生产工作流</h3>
+        <h3 style="margin-bottom:0">自建 Agent TikTok 工作流</h3>
         <div class="pills">
           <span class="pill"><i></i>GPT / 豆包 脚本</span>
           <span class="pill v"><i></i>即梦 / Seedance</span>
-          <span class="pill p"><i></i>AI Agent 批量剪辑</span>
+          <span class="pill p"><i></i>Agent 批量出片</span>
           <span class="pill l"><i></i>Gemini / Flow</span>
         </div>
       </div>
@@ -876,7 +1034,7 @@ section.wm-on .watermark{opacity:1;transform:none}
     </div>
     <div class="stats rv d5" style="margin-top:22px">
       <div class="statcard"><div class="statnum c1 sm">2 年</div><div class="statlabel">短视频从业</div></div>
-      <div class="statcard"><div class="statnum c2 sm">6–10 条</div><div class="statlabel">日均产出</div></div>
+      <div class="statcard"><div class="statnum c2 sm">10–12 条</div><div class="statlabel">日均产出</div></div>
       <div class="statcard"><div class="statnum c3 sm">二乙</div><div class="statlabel">普通话等级</div></div>
       <div class="statcard"><div class="statnum c4 sm">23 岁</div><div class="statlabel">男 · 深圳</div></div>
     </div>
@@ -896,7 +1054,7 @@ section.wm-on .watermark{opacity:1;transform:none}
       </div>
       <div class="card scol rv d1">
         <div class="si"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v3M12 19v3M4.9 4.9L7 7M17 17l2.1 2.1M2 12h3M19 12h3M4.9 19.1L7 17M17 7l2.1-2.1"/></svg></div>
-        <div><h3>AI 创作工具</h3><p>即梦 AI · Seedance · GPT / 豆包 · AI Agent 工作流</p></div>
+        <div><h3>AI 创作工具</h3><p>即梦 AI · Seedance · GPT / 豆包 · 自建 Agent 工作流</p></div>
       </div>
       <div class="card scol rv d2">
         <div class="si"><svg viewBox="0 0 24 24"><path d="M4 7h16M4 12h11M4 17h7"/><circle cx="18.5" cy="16.5" r="2.5"/></svg></div>
@@ -932,11 +1090,13 @@ section.wm-on .watermark{opacity:1;transform:none}
     </div>
     <div class="pills rv d5" style="justify-content:center;margin-top:13px">
       <span style="align-self:center;font-size:12.5px;color:rgba(255,255,255,.42);margin-right:4px">覆盖类目</span>
-      <span class="pill"><i></i>旅行用品</span>
+      <span class="pill"><i></i>宠物用品</span>
       <span class="pill v"><i></i>家居</span>
-      <span class="pill p"><i></i>五金</span>
-      <span class="pill l"><i></i>饰品</span>
+      <span class="pill p"><i></i>汽车工具</span>
+      <span class="pill l"><i></i>珠宝首饰</span>
       <span class="pill"><i></i>3C 数码</span>
+      <span class="pill v"><i></i>小家电</span>
+      <span class="pill p"><i></i>家居收纳</span>
     </div>
   </div>
 </section>
@@ -951,13 +1111,13 @@ section.wm-on .watermark{opacity:1;transform:none}
       <div class="tl rv d2">
         <div class="tl-head">
           <h3>寓羊（广州）传媒有限责任公司<em>拍摄剪辑师</em></h3>
-          <span class="tl-time">2026.03 — 至今</span>
+          <span class="tl-time">2026.03 — 2026.11</span>
         </div>
         <ul>
-          <li>独立完成 TikTok 电商带货短视频拍摄、脚本优化、素材整理、剪辑成片全流程，覆盖旅行用品、家居、五金、饰品、3C 数码等类目。</li>
-          <li>日均产出 6–10 条短视频，运用卡点剪辑、音效、花字包装优化观感。</li>
-          <li>用 GPT / 豆包拆解产品卖点与用户痛点写脚本，即梦生成 AIGC 素材，配合 AI Agent 批量处理素材与成片，搭建并持续优化视频生产工作流。</li>
-          <li><b style="color:#fff">代表成果：单条最高播放 25 万+，单条 15 天自然播放 20 万，带动 GMV 3000 美刀。</b></li>
+          <li>独立完成 TikTok 电商带货短视频拍摄、脚本优化、素材整理、剪辑成片全流程，覆盖宠物、汽车工具、小家电、3C 数码、家居收纳、珠宝首饰等类目。</li>
+          <li>稳定日产 10–12 条短视频，运用卡点剪辑、音效、花字包装优化观感。</li>
+          <li>搭了一套 Agent TikTok 工作流：Agent 串起选题、脚本、分镜，即梦/Seedance 生成素材，再批量出片，重复环节从人手里挪出去。</li>
+          <li><b style="color:#fff">代表成果：单条最高播放 57.9 万；7 月单月成交 GMV $5.1K、221 件；官号新店起号，10 月 1–26 日短视频成交 GMV $6.6K、110 单。</b></li>
         </ul>
       </div>
       <div class="tl rv d3">
@@ -992,23 +1152,23 @@ section.wm-on .watermark{opacity:1;transform:none}
   <div class="wrap">
     <span class="eyebrow rv">Highlights <em>· 代表成果</em></span>
     <h2 class="title rv d1">代表<span class="g">成果</span></h2>
-    <p class="sub rv d2">以下为部分数据（非全部业绩）· TikTok 后台真实截图，点击可查看原图 · 仅供面试提供使用</p>
+    <p class="sub rv d2">部分数据 · 后台真实截图（账号名与品牌名已裁掉）· 点击看原图 · 仅供面试使用</p>
     <div class="shot3 rv d3">
-      <div class="dc" data-img="assets/data/d1.jpg" data-t="TikTok 后台 · 7月1–31日">
+      <div class="dc" data-img="assets/data/d1.jpg" data-t="达人号后台 · 7 月 1–31 日：GMV $5.1K / 221 单">
         <img src="assets/data/d1.jpg" alt="TikTok 后台数据 7月1-31日" draggable="false">
       </div>
-      <div class="dc" data-img="assets/data/d2.jpg" data-t="TikTok 后台 · 7月1–27日">
-        <img src="assets/data/d2.jpg" alt="TikTok 后台数据 7月1-27日" draggable="false">
+      <div class="dc" data-img="assets/data/g1.jpg" data-t="官号后台 · 10 月 1–26 日：GMV $6.6K / 110 单">
+        <img src="assets/data/g1.jpg" alt="官号 TikTok 后台 GMV 截图（已打码）" draggable="false">
       </div>
-      <div class="dc" data-img="assets/data/d3.jpg" data-t="账号主页 · 单条最高 25 万播放">
+      <div class="dc" data-img="assets/data/d3.jpg" data-t="账号主页 · 单条 250.9K 播放">
         <img src="assets/data/d3.jpg" alt="TikTok 账号主页数据" draggable="false">
       </div>
     </div>
     <div class="stats rv d4" style="margin-top:20px">
-      <div class="statcard"><div class="statnum c4 sm">250.9K</div><div class="statlabel">单条最高播放</div></div>
-      <div class="statcard"><div class="statnum c1 sm">$5.1K</div><div class="statlabel">单月最高成交 GMV</div></div>
-      <div class="statcard"><div class="statnum c2 sm">207.4K</div><div class="statlabel">单月商品曝光</div></div>
-      <div class="statcard"><div class="statnum c3 sm">221</div><div class="statlabel">单月成交件数</div></div>
+      <div class="statcard"><div class="statnum c4 sm">57.9 万</div><div class="statlabel">单条最高播放</div></div>
+      <div class="statcard"><div class="statnum c1 sm">$5.1K</div><div class="statlabel">达人号 · 7 月 GMV（221 单）</div></div>
+      <div class="statcard"><div class="statnum c2 sm">$6.6K</div><div class="statlabel">官号 · 10 月 GMV（110 单）</div></div>
+      <div class="statcard"><div class="statnum c3 sm">30 支</div><div class="statlabel">已交付成片</div></div>
     </div>
   </div>
 </section>
@@ -1019,44 +1179,44 @@ section.wm-on .watermark{opacity:1;transform:none}
   <div class="wrap">
     <span class="eyebrow rv">Works <em>· 作品展示</em></span>
     <h2 class="title rv d1">作品<span class="g">目录</span></h2>
-    <p class="sub rv d2">18 支带货短视频 · 实拍剪辑 + AIGC 生成 · 点击分类查看</p>
+    <p class="sub rv d2">30 支带货短视频 · 实拍剪辑 + AIGC 生成 · 点击分类查看</p>
 
     <div class="catgrid rv d3">
       <div class="catcard" data-cat="commercial">
         <div class="cimg">
-          <span class="cn">12 WORKS</span>
+          <span class="cn">15 WORKS</span>
           <img src="assets/covers/v13.jpg" alt="TikTok 带货短视频" loading="lazy" draggable="false">
         </div>
         <div class="cmeta">
           <span class="cnum">01 / COMMERCIAL VIDEO</span>
           <h3>TikTok 带货短视频</h3>
-          <p>数码 3C · 小家电 · 家居家纺 · 出行装备</p>
+          <p>宠物 · 汽车工具 · 小家电 · 3C 数码 · 家居收纳</p>
         </div>
         <span class="cgo">查看 ▷</span>
       </div>
 
       <div class="catcard" data-cat="aigc">
         <div class="cimg">
-          <span class="cn">6 WORKS</span>
+          <span class="cn">15 WORKS</span>
           <img src="assets/covers/v18.jpg" alt="AIGC 创意视频" loading="lazy" draggable="false">
         </div>
         <div class="cmeta">
           <span class="cnum">02 / AIGC CREATIVE</span>
           <h3>AIGC 创意视频</h3>
-          <p>AI 达人出镜 · 商品场景生成 · 全流程 AI 生产</p>
+          <p>AI 达人出镜 · 宠物洗护 / 牵引工具 · 全流程 AI 生产</p>
         </div>
         <span class="cgo">查看 ▷</span>
       </div>
 
       <div class="catcard" data-cat="picks">
         <div class="cimg">
-          <span class="cn">3 WORKS</span>
+          <span class="cn">5 WORKS</span>
           <img src="assets/covers/v14.jpg" alt="精选案例" loading="lazy" draggable="false">
         </div>
         <div class="cmeta">
           <span class="cnum">03 / HIGHLIGHTS</span>
           <h3>精选案例</h3>
-          <p>25 万播放爆款 · 宠物垂类 · AIGC 全生成</p>
+          <p>官号起号案例 · 单月 GMV $6.6K · 57.9 万爆款</p>
         </div>
         <span class="cgo">查看 ▷</span>
       </div>
@@ -1087,7 +1247,7 @@ section.wm-on .watermark{opacity:1;transform:none}
       <div class="card fl rv d1"><div class="dot">01</div><h3>爆款拆解</h3><p>拆解爆款脚本结构与开场钩子，提炼可复用套路</p></div>
       <div class="card fl rv d2"><div class="dot">02</div><h3>找对标 &amp; 选题</h3><p>锁定对标账号与视频，小成本测试拍摄方向</p></div>
       <div class="card fl rv d3"><div class="dot">03</div><h3>脚本 &amp; 拍摄</h3><p>GPT / 豆包拆解卖点写脚本，现场采集拍摄素材</p></div>
-      <div class="card fl rv d4"><div class="dot">04</div><h3>剪辑 &amp; 包装</h3><p>卡点剪辑、音效、花字，即梦补 AIGC 画面，提升完播率</p></div>
+      <div class="card fl rv d4"><div class="dot">04</div><h3>剪辑 &amp; 包装</h3><p>卡点剪辑、音效、花字；即梦补 AIGC 画面，Agent 批量出片</p></div>
       <div class="card fl rv d5"><div class="dot">05</div><h3>发布 &amp; 复盘</h3><p>跟进热门玩法与 BGM，数据验证后放量</p></div>
     </div>
     <div class="aitags rv d4">
@@ -1098,7 +1258,7 @@ section.wm-on .watermark{opacity:1;transform:none}
       <span class="pill"><i></i>豆包 / GPT 脚本</span>
     </div>
     <div class="stats rv d5" style="grid-template-columns:repeat(3,1fr)">
-      <div class="statcard"><div class="statnum c1 sm">6–10 条</div><div class="statlabel">日均产出</div></div>
+      <div class="statcard"><div class="statnum c1 sm">10–12 条</div><div class="statlabel">日均产出</div></div>
       <div class="statcard"><div class="statnum c2 sm">全流程</div><div class="statlabel">脚本 · 拍摄 · 剪辑</div></div>
       <div class="statcard"><div class="statnum c3 sm">多平台</div><div class="statlabel">TikTok · 抖音 · 视频号</div></div>
     </div>
@@ -1148,16 +1308,16 @@ section.wm-on .watermark{opacity:1;transform:none}
     <div class="center">
       <span class="eyebrow rv">Contact <em>· 求职意向</em></span>
       <h2 class="title rv d1">求职意向 &amp; <span class="g">联系方式</span></h2>
-      <p class="sub rv d2">求职方向 <b style="color:#fff">TikTok 拍摄剪辑</b> · 期望薪资 <b style="color:#fff">7–9K</b> · 期望城市 <b style="color:#fff">深圳</b> · 可快速到岗</p>
+      <p class="sub rv d2">求职方向 <b style="color:#fff">TikTok 内容运营 / 拍摄剪辑</b> · 期望薪资 <b style="color:#fff">8–9K</b> · 期望城市 <b style="color:#fff">深圳</b> · 可快速到岗</p>
     </div>
     <div class="contactgrid">
       <a class="card cc rv d2" id="ccWx">
         <span class="ci"><svg viewBox="0 0 24 24"><path d="M8.5 3C4.9 3 2 5.5 2 8.6c0 1.7.9 3.2 2.4 4.3l-.6 1.9 2.2-1.2c.8.2 1.6.3 2.5.3h.6"/><path d="M22 15.4c0-2.6-2.4-4.7-5.4-4.7s-5.4 2.1-5.4 4.7 2.4 4.7 5.4 4.7c.7 0 1.4-.1 2-.3l1.8 1-.5-1.6c1.3-.9 2.1-2.2 2.1-3.8z"/></svg></span>
         <span><b>微信</b><small>1905396071</small></span>
       </a>
-      <a class="card cc rv d3" id="ccMail" href="mailto:1905396071@qq.com">
+      <a class="card cc rv d3" id="ccMail" href="mailto:yuhao3261@gmail.com">
         <span class="ci"><svg viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M2 7l10 6 10-6"/></svg></span>
-        <span><b>邮箱</b><small>1905396071@qq.com</small></span>
+        <span><b>邮箱</b><small>yuhao3261@gmail.com</small></span>
       </a>
       <div class="card cc rv d4">
         <span class="ci"><svg viewBox="0 0 24 24"><path d="M21 10c0 6-9 12-9 12s-9-6-9-12a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></span>
@@ -1165,7 +1325,7 @@ section.wm-on .watermark{opacity:1;transform:none}
       </div>
       <div class="card cc rv d5">
         <span class="ci"><svg viewBox="0 0 24 24"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></span>
-        <span><b>求职方向</b><small>TikTok 拍摄剪辑 · 7–9K</small></span>
+        <span><b>求职方向</b><small>TikTok 内容运营 / 拍摄剪辑 · 8–9K</small></span>
       </div>
     </div>
     <div class="quote rv d5">「 把镜头对准产品，把节奏剪进用户心里 —— <em>让每条视频都值得被看完</em> 」</div>
@@ -1178,7 +1338,7 @@ section.wm-on .watermark{opacity:1;transform:none}
   <div class="mqbar" aria-hidden="true">
     <span class="mqtag">KEYWORDS</span>
     <div class="mq">
-      <div class="mq-track" id="mqTrack"><span>TikTok 美区带货</span><span>AIGC 达人出镜</span><span>CapCut / 剪映</span><span>30–60s 口播</span><span>日更 6–10 条</span><span>单条 25 万+ 播放</span><span>卡点剪辑</span><span>完播率优化</span><span>即梦 / Seedance</span><span>多平台分发</span></div>
+      <div class="mq-track" id="mqTrack"><span>TikTok 美区带货</span><span>AIGC 达人出镜</span><span>CapCut / 剪映</span><span>30–60s 口播</span><span>日更 10–12 条</span><span>单条 57.9 万播放</span><span>卡点剪辑</span><span>完播率优化</span><span>即梦 / Seedance</span><span>多平台分发</span></div>
     </div>
   </div>
 </section>
@@ -1503,14 +1663,19 @@ section.wm-on .watermark{opacity:1;transform:none}
         ['v01','移动电源 · 数码配件'], ['v02','无线耳机 · 数码配件'], ['v03','数码开箱 · 3C 数码'],
         ['v04','行李箱绑带 · 出行装备'], ['v05','行李箱 · 出行装备'], ['v06','咖啡壶 · 小家电开箱'],
         ['v08','破壁机 · 小家电'], ['v09','玻璃养生壶 · 小家电'], ['v11','宠物湿巾 · 宠物用品'],
-        ['v12','解压玩具 · 生活好物'], ['v13','家纺床品 · 家居'], ['v14','宠物凉感垫 · 宠物用品']]},
+        ['v12','解压玩具 · 生活好物'], ['v13','家纺床品 · 家居'], ['v14','宠物凉感垫 · 宠物用品'],
+        ['c02','宠物美容工具 · 实拍'], ['c09','仿真娃娃 · 官号实拍'], ['c10','仿真娃娃 · 官号实拍']]},
       aigc: { num:'02 / AIGC CREATIVE', title:'AIGC 创意视频', items:[
         ['v07','字母项链 · 珠宝首饰'], ['v10','灶台清洁 · 家居日用'], ['v15','玄关衣帽架 · 家居收纳'],
-        ['v16','玻璃保鲜盒 · 厨房用品'], ['v17','遮阳空顶帽 · 服饰配件'], ['v18','AIGC 宠物用品']]},
+        ['v16','玻璃保鲜盒 · 厨房用品'], ['v17','遮阳空顶帽 · 服饰配件'], ['v18','AIGC 宠物用品'],
+        ['c01','宠物服饰 · AIGC'], ['c03','宠物洗护 · AIGC'], ['c04','宠物洗护 · AIGC'],
+        ['c05','宠物喂食器 · AIGC'], ['c06','房车牵引钩 · AIGC'], ['c07','拖车移车架 · AIGC'],
+        ['c08','拖车千斤顶 · AIGC'], ['c11','电动千斤顶 · AIGC'], ['c12','电动喷雾器 · AIGC']]},
       picks: { num:'03 / HIGHLIGHTS', title:'精选案例', items:[
-        ['v13','家纺床品 · 单条 25 万播放'], ['v14','宠物凉感垫 · 宠物垂类'], ['v18','AIGC 宠物用品 · 全 AI 生成']]}
+        ['v13','家纺床品 · 爆款'], ['v14','宠物凉感垫 · 宠物垂类'], ['v18','AIGC 宠物用品 · 全 AI 生成'],
+        ['c09','官号起号 · 单月 GMV $6.6K'], ['c05','宠物喂食器 · 全 AI 生成']]}
     };
-    const AI = new Set(['v07','v10','v15','v16','v17','v18']);
+    const AI = new Set(['v07','v10','v15','v16','v17','v18','c01','c03','c04','c05','c06','c07','c08','c11','c12']);
     const LB = document.getElementById('catLB');
     const GRID = document.getElementById('catGrid');
     const NUM = document.getElementById('catNum');
